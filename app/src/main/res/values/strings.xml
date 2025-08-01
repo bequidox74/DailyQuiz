@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">DailyQuiz</string>
+    <string name="radio_off" />
+    <string name="radio_selected">Selected</string>
+    <string name="radio_correct">Correct</string>
+    <string name="radio_incorrect">Incorrect</string>
 </resources>
