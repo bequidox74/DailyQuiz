@@ -5,4 +5,18 @@
     <string name="radio_correct">Верно</string>
     <string name="radio_incorrect">Неверно</string>
     <string name="question_number">Вопрос %1$s из %2$s</string>
+    <string name="results_correct_questions">%1$s из %2$s</string>
+    <string name="results_0_stars_title">Бывает и так!</string>
+    <string name="results_1_stars_title">Сложный вопрос?</string>
+    <string name="results_2_stars_title">Есть над чем поработать</string>
+    <string name="results_3_stars_title">Хороший результат!</string>
+    <string name="results_4_stars_title">Почти идеально!</string>
+    <string name="results_5_stars_title">Идеально!</string>
+    <string name="results_0_stars_body">0/5 — не отчаивайтесь. Начните заново и удивите себя!</string>
+    <string name="results_1_stars_body">1/5 — иногда просто не ваш день. Следующая попытка будет лучше!</string>
+    <string name="results_2_stars_body">2/5 — не расстраивайтесь, попробуйте ещё раз!</string>
+    <string name="results_3_stars_body">3/5 — вы на верном пути. Продолжайте тренироваться!</string>
+    <string name="results_4_stars_body">4/5 — очень близко к совершенству. Ещё один шаг!</string>
+    <string name="results_5_stars_body">5/5 — вы ответили на всё правильно. Это блестящий результат!</string>
+    <string name="button_restart">Начать заново</string>
 </resources>
