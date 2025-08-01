@@ -24,7 +24,7 @@ import ru.trfx.dailyquiz.R
 import ru.trfx.dailyquiz.ui.theme.Colors
 import ru.trfx.dailyquiz.ui.theme.Shapes
 
-private const val MAX_STARS = 5
+const val MAX_STARS = 5
 
 @Composable
 fun ResultsCard(
@@ -32,6 +32,7 @@ fun ResultsCard(
     onRestart: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    require(stars in 0..5) {  "Invalid number of stars" }
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
@@ -73,7 +74,7 @@ fun ResultsCard(
                     3 -> R.string.results_3_stars_title
                     4 -> R.string.results_4_stars_title
                     5 -> R.string.results_5_stars_title
-                    else -> error("Invalid star count")
+                    else -> error("")
                 }
             ),
             color = Colors.Black,
@@ -91,7 +92,7 @@ fun ResultsCard(
                     3 -> R.string.results_3_stars_body
                     4 -> R.string.results_4_stars_body
                     5 -> R.string.results_5_stars_body
-                    else -> error("Invalid star count")
+                    else -> error("")
                 }
             ),
             color = Colors.Black,

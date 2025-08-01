@@ -19,4 +19,6 @@
     <string name="results_4_stars_body">4/5 — очень близко к совершенству. Ещё один шаг!</string>
     <string name="results_5_stars_body">5/5 — вы ответили на всё правильно. Это блестящий результат!</string>
     <string name="button_restart">Начать заново</string>
+    <string name="quiz_category">Категория: %1$s</string>
+    <string name="quiz_difficulty">Сложность: %1$s</string>
 </resources>
