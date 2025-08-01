@@ -1,0 +1,184 @@
+package ru.trfx.dailyquiz.ui.component
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import ru.trfx.dailyquiz.R
+import ru.trfx.dailyquiz.ui.theme.Colors
+import ru.trfx.dailyquiz.ui.theme.Shapes
+
+@Composable
+fun AnswerCardOptions(
+    title: String,
+    options: List<AnswerOptionState>,
+    onOptionClick: (Int, AnswerOptionState) -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier,
+    ) {
+        Text(
+            text = title,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.SemiBold,
+        )
+
+        Spacer(Modifier.height(24.dp))
+
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+            items(count = options.size) { index ->
+                val state = options[index]
+                AnswerOption(
+                    state = state,
+                    enabled = enabled,
+                    onClick = { onOptionClick(index, state) }
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun HistoryAnswerCard(
+    number: Int,
+    maxNumber: Int,
+    title: String,
+    state: RadioButtonState,
+    options: List<AnswerOptionState>,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier = modifier
+            .background(color = Colors.White, shape = Shapes.Card)
+            .padding(24.dp),
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text(
+                text = stringResource(R.string.question_number, number, maxNumber),
+                color = Colors.Gray,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+            )
+            Spacer(Modifier.weight(1.0f))
+            Icon(
+                painter = painterResource(state.iconId),
+                contentDescription = stringResource(state.textId),
+                tint = Color.Unspecified,
+                modifier = Modifier.height(IntrinsicSize.Max),
+            )
+        }
+        Spacer(Modifier.height(24.dp))
+        AnswerCardOptions(
+            title = title,
+            options = options,
+            onOptionClick = { _, _ -> },
+            enabled = false,
+        )
+    }
+}
+
+@Composable
+fun QuestionCard(
+    elapsedSeconds: Float,
+    totalSeconds: Float,
+    number: Int,
+    maxNumber: Int,
+    title: String,
+    onOptionClick: (Int, AnswerOptionState) -> Unit,
+    options: List<AnswerOptionState>,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier
+            .background(color = Colors.White, shape = Shapes.Card)
+            .padding(24.dp),
+    ) {
+        QuestionTimer(
+            elapsedSeconds = elapsedSeconds,
+            totalSeconds = totalSeconds,
+        )
+        Spacer(Modifier.height(24.dp))
+        Text(
+            text = stringResource(R.string.question_number, number, maxNumber),
+            color = Colors.Lavender,
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Bold,
+        )
+        Spacer(Modifier.height(24.dp))
+        AnswerCardOptions(
+            title = title,
+            options = options,
+            onOptionClick = onOptionClick,
+        )
+    }
+}
+
+private const val previewQuestion = "Lorem ipsum dolor sit amet?"
+private val previewOptions = listOf(
+    AnswerOptionState("Lorem ipsum #1", RadioButtonState.Off),
+    AnswerOptionState("Lorem ipsum #2", RadioButtonState.Correct),
+    AnswerOptionState("Lorem ipsum #3", RadioButtonState.Incorrect),
+    AnswerOptionState("Lorem ipsum #4", RadioButtonState.Selected),
+)
+
+@Preview
+@Composable
+private fun PreviewOptions() {
+    AnswerCardOptions(
+        title = previewQuestion,
+        options = previewOptions,
+        onOptionClick = { _, _ -> },
+    )
+}
+
+@Preview
+@Composable
+private fun PreviewHistory() {
+    HistoryAnswerCard(
+        number = 3,
+        maxNumber = 5,
+        title = previewQuestion,
+        state = RadioButtonState.Correct,
+        options = previewOptions,
+    )
+}
+
+@Preview
+@Composable
+private fun PreviewQuestion() {
+    MaterialTheme {
+        QuestionCard(
+            elapsedSeconds = 150f,
+            totalSeconds = 300f,
+            number = 3,
+            maxNumber = 5,
+            title = previewQuestion,
+            options = previewOptions,
+            onOptionClick = { _, _ -> },
+        )
+    }
+}
