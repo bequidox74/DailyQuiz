@@ -109,14 +109,12 @@ fun QuestionCard(
     title: String,
     onOptionClick: (Int) -> Unit,
     options: List<AnswerOptionState>,
+    buttonText: String,
+    buttonEnabled: Boolean,
+    onButtonClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
-            .background(color = Colors.White, shape = Shapes.Card)
-            .padding(24.dp),
-    ) {
+    Card(modifier = modifier) {
         QuestionTimer(
             elapsedSeconds = elapsedSeconds,
             totalSeconds = totalSeconds,
@@ -133,6 +131,12 @@ fun QuestionCard(
             title = title,
             options = options,
             onOptionClick = onOptionClick,
+        )
+        Spacer(Modifier.height(64.dp))
+        Button(
+            text = buttonText,
+            onClick = onButtonClick,
+            enabled = buttonEnabled,
         )
     }
 }
@@ -179,6 +183,9 @@ private fun PreviewQuestion() {
             title = previewQuestion,
             options = previewOptions,
             onOptionClick = {},
+            buttonText = "Lorem ipsum",
+            buttonEnabled = true,
+            onButtonClick = {},
         )
     }
 }

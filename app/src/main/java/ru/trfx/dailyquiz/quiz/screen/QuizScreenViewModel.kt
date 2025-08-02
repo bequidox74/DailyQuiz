@@ -44,6 +44,9 @@ class QuizScreenViewModel(
     private val _questionNumber = MutableStateFlow(1)
     val questionNumber = _questionNumber.asStateFlow()
 
+    private val _buttonEnabled = MutableStateFlow(false)
+    val buttonEnabled = _buttonEnabled.asStateFlow()
+
     private val _answerOptions = MutableStateFlow<List<AnswerOptionState>>(emptyList())
     val answerOptions = _answerOptions.asStateFlow()
 
@@ -84,7 +87,13 @@ class QuizScreenViewModel(
         }
     }
 
+    fun advanceQuiz() {
+        Timber.i("Advancing quiz")
+        _buttonEnabled.value = false
+    }
+
     fun onOptionSelected(index: Int) {
+        _buttonEnabled.value = true
         _answerOptions.value = _answerOptions.value.mapIndexed { i, option ->
             option.copy(
                 buttonState = if (i == index) {

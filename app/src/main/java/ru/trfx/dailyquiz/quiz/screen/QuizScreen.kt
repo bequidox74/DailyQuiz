@@ -9,6 +9,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
@@ -55,6 +56,7 @@ fun QuizScreen(
 
             val questionNumber by viewModel.questionNumber.collectAsStateWithLifecycle()
             val answerOptions by viewModel.answerOptions.collectAsStateWithLifecycle()
+            val buttonEnabled by viewModel.buttonEnabled.collectAsStateWithLifecycle()
             val question = state.quiz.questions[questionNumber]
 
             val realElapsedSeconds by viewModel.elapsedSeconds.collectAsStateWithLifecycle()
@@ -73,6 +75,13 @@ fun QuizScreen(
                     title = question.title,
                     options = answerOptions,
                     onOptionClick = viewModel::onOptionSelected,
+                    buttonText = stringResource(
+                        if (questionNumber < state.quiz.questions.size) {
+                            R.string.button_next
+                        } else R.string.button_end_quiz
+                    ).uppercase(),
+                    buttonEnabled = buttonEnabled,
+                    onButtonClick = viewModel::advanceQuiz,
                 )
             }
         }

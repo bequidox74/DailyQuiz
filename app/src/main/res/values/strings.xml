@@ -58,4 +58,6 @@
     <string name="screen_history">История</string>
     <string name="text_welcome">Добро пожаловать в DailyQuiz!</string>
     <string name="toast_error">Ошибка! Попробуйте ещё раз</string>
+    <string name="button_next">Далее</string>
+    <string name="button_end_quiz">Завершить</string>
 </resources>
