@@ -107,8 +107,9 @@ fun QuestionCard(
     currentQuestionNumber: Int,
     questionCount: Int,
     title: String,
-    onOptionClick: (Int) -> Unit,
     options: List<AnswerOptionState>,
+    onOptionClick: (Int) -> Unit,
+    optionsEnabled: Boolean,
     buttonText: String,
     buttonEnabled: Boolean,
     onButtonClick: () -> Unit,
@@ -131,6 +132,7 @@ fun QuestionCard(
             title = title,
             options = options,
             onOptionClick = onOptionClick,
+            enabled = optionsEnabled,
         )
         Spacer(Modifier.height(64.dp))
         Button(
@@ -186,6 +188,7 @@ private fun PreviewQuestion() {
             buttonText = "Lorem ipsum",
             buttonEnabled = true,
             onButtonClick = {},
+            optionsEnabled = true,
         )
     }
 }

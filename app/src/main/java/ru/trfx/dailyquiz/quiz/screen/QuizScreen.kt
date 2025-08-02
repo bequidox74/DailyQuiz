@@ -59,6 +59,7 @@ fun QuizScreen(
             val questionNumber by viewModel.questionNumber.collectAsStateWithLifecycle()
             val answerOptions by viewModel.answerOptions.collectAsStateWithLifecycle()
             val buttonEnabled by viewModel.buttonEnabled.collectAsStateWithLifecycle()
+            val optionsEnabled by viewModel.optionsEnabled.collectAsStateWithLifecycle()
             val question = QuizHandler.getQuestion(questionNumber)
 
             val realElapsedSeconds by viewModel.elapsedSeconds.collectAsStateWithLifecycle()
@@ -77,6 +78,7 @@ fun QuizScreen(
                     title = question.title,
                     options = answerOptions,
                     onOptionClick = viewModel::onOptionSelected,
+                    optionsEnabled = optionsEnabled,
                     buttonText = stringResource(
                         if (questionNumber < QuizHandler.questionCount) {
                             R.string.button_next
