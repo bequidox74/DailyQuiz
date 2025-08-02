@@ -39,7 +39,6 @@ inline fun BaseQuizScreen(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
-            .background(color = Colors.Blue)
             .fillMaxSize()
             .padding(top = 96.dp)
             .padding(horizontal = 24.dp),
