@@ -53,6 +53,9 @@ class QuizScreenViewModel(
     private val _timeoutEventFlow = MutableSharedFlow<Unit>()
     val timeoutEventFlow = _timeoutEventFlow.asSharedFlow()
 
+    private var selectedOptionIndex = -1
+    private val answers = mutableListOf<Int>()
+
     fun loadQuiz(category: Category?, difficulty: Difficulty?) {
         viewModelScope.launch {
             Timber.i("Loading quiz ($category, $difficulty)")
@@ -81,6 +84,8 @@ class QuizScreenViewModel(
 
                 // Update state
                 _state.value = QuizScreenUiState.Loaded(quiz)
+                selectedOptionIndex = -1
+                answers.clear()
             } catch (e: Exception) {
                 _state.value = QuizScreenUiState.Error
             }
@@ -89,9 +94,14 @@ class QuizScreenViewModel(
 
     fun advanceQuiz() {
         Timber.i("Advancing quiz")
+        check(selectedOptionIndex >= 0)
         val state = _state.value as QuizScreenUiState.Loaded
-        if (questionNumber.value == state.quiz.questions.size) { // last question
-            Timber.i("Showing quiz results")
+
+        answers += selectedOptionIndex
+        selectedOptionIndex = -1
+
+        if (questionNumber.value == state.quiz.questions.size) {
+            Timber.i("Reached last question, showing quiz results")
             TODO()
         } else {
             _buttonEnabled.value = false
@@ -103,6 +113,7 @@ class QuizScreenViewModel(
     }
 
     fun onOptionSelected(index: Int) {
+        selectedOptionIndex = index
         _buttonEnabled.value = true
         _answerOptions.value = _answerOptions.value.mapIndexed { i, option ->
             option.copy(

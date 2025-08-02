@@ -33,7 +33,7 @@ enum class Category(@StringRes val resId: Int, val categoryId: Int) {
     Vehicles(R.string.category_vehicles, 28),
     Comics(R.string.category_comics, 29),
     Gadgets(R.string.category_gadgets, 30),
-    JapaneseAnimeAndManga(R.string.category_anime,31),
+    JapaneseAnimeAndManga(R.string.category_anime, 31),
     CartoonsAndAnimation(R.string.category_cartoons, 32),
 }
 
@@ -49,4 +49,10 @@ data class Question(
     val title: String,
     val options: List<String>,
     val correctOptionIndex: Int,
+)
+
+@Immutable
+data class CompletedQuiz(
+    val quiz: Quiz,
+    val answers: List<Int>,
 )
