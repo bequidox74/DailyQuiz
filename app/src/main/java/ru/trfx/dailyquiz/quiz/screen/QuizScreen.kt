@@ -57,7 +57,7 @@ fun QuizScreen(
             val questionNumber by viewModel.questionNumber.collectAsStateWithLifecycle()
             val answerOptions by viewModel.answerOptions.collectAsStateWithLifecycle()
             val buttonEnabled by viewModel.buttonEnabled.collectAsStateWithLifecycle()
-            val question = state.quiz.questions[questionNumber]
+            val question = state.quiz.questions[questionNumber - 1]
 
             val realElapsedSeconds by viewModel.elapsedSeconds.collectAsStateWithLifecycle()
             val elapsedSeconds by animateFloatAsState(realElapsedSeconds)

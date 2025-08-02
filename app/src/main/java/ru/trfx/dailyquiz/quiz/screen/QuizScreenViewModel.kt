@@ -89,7 +89,17 @@ class QuizScreenViewModel(
 
     fun advanceQuiz() {
         Timber.i("Advancing quiz")
-        _buttonEnabled.value = false
+        val state = _state.value as QuizScreenUiState.Loaded
+        if (questionNumber.value == state.quiz.questions.size) { // last question
+            Timber.i("Showing quiz results")
+            TODO()
+        } else {
+            _buttonEnabled.value = false
+            _questionNumber.value++
+            _answerOptions.value = state.quiz.questions[_questionNumber.value - 1].options.map {
+                AnswerOptionState(it, RadioButtonState.Off)
+            }
+        }
     }
 
     fun onOptionSelected(index: Int) {
