@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -32,7 +31,7 @@ fun ResultsCard(
     onRestart: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    require(stars in 0..5) {  "Invalid number of stars" }
+    require(stars in 0..5) { "Invalid number of stars" }
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
@@ -104,8 +103,6 @@ fun ResultsCard(
         Spacer(Modifier.height(52.dp))
         Button(
             text = stringResource(R.string.button_restart).uppercase(),
-            color = Colors.Blue,
-            textColor = Colors.White,
             onClick = onRestart,
         )
     }

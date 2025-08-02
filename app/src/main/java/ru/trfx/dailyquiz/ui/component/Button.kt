@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -24,14 +23,20 @@ import ru.trfx.dailyquiz.ui.theme.Shapes
 @Composable
 fun Button(
     text: String,
-    color: Color,
-    textColor: Color,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    invertColors: Boolean = false,
     interactionSource: MutableInteractionSource? = null,
     indication: Indication? = LocalIndication.current,
 ) {
+    val bodyColor = if (!enabled) Colors.Gray else {
+        if (invertColors) Colors.White else Colors.Blue
+    }
+    val textColor = if (!enabled) Colors.White else {
+        if (invertColors) Colors.Blue else Colors.White
+    }
+
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
@@ -44,7 +49,7 @@ fun Button(
             )
             .height(50.dp)
             .fillMaxWidth()
-            .background(color = color, shape = Shapes.Button),
+            .background(color = bodyColor, shape = Shapes.Button),
     ) {
         Text(
             text = text,
@@ -60,8 +65,6 @@ fun Button(
 private fun Preview() {
     Button(
         text = "LOREM IPSUM",
-        color = Colors.Blue,
-        textColor = Colors.White,
         onClick = {},
     )
 }

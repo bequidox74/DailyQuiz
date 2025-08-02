@@ -7,4 +7,5 @@ object Shapes {
     val MenuItem = RoundedCornerShape(12.dp)
     val Button = RoundedCornerShape(16.dp)
     val Card = RoundedCornerShape(40.dp)
+    val Round = RoundedCornerShape(100)
 }

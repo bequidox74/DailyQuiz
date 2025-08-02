@@ -49,4 +49,12 @@
     <string name="category_gadgets">Гаджеты</string>
     <string name="category_anime">Аниме и манга</string>
     <string name="category_cartoons">Мультфильмы и анимация</string>
+    <string name="button_back">Назад</string>
+    <string name="text_almost_ready">Почти готовы!</string>
+    <string name="text_filters_description">Осталось выбрать категорию и сложность викторины.</string>
+    <string name="label_category">Категория</string>
+    <string name="label_difficulty">Сложность</string>
+    <string name="button_start_quiz">Начать викторину</string>
+    <string name="button_history">История</string>
+    <string name="text_welcome">Добро пожаловать в DailyQuiz!</string>
 </resources>

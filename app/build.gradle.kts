@@ -11,6 +11,8 @@ plugins {
 kotlin {
     compilerOptions {
         jvmTarget = JvmTarget.JVM_11
+        freeCompilerArgs.add("-Xannotation-default-target=param-property")
+        allWarningsAsErrors = true
     }
 }
 
@@ -61,13 +63,14 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.kotlinx)
     implementation(libs.kotlinx.serialization.json)
-    implementation(libs.compose.destinations)
+    implementation(libs.composeDestinations)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     implementation(libs.timber)
     implementation(project.dependencies.platform(libs.koin.bom))
     implementation(libs.koin.androidx.compose)
     ksp(libs.androidx.room.compiler)
+    ksp(libs.composeDestinations.ksp)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
