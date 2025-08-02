@@ -1,4 +1,4 @@
-package ru.trfx.dailyquiz.quiz.screen.start
+package ru.trfx.dailyquiz.quiz.screen
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -21,7 +21,6 @@ import com.ramcosta.composedestinations.annotation.RootGraph
 import ru.trfx.dailyquiz.R
 import ru.trfx.dailyquiz.quiz.Category
 import ru.trfx.dailyquiz.quiz.Difficulty
-import ru.trfx.dailyquiz.quiz.screen.BaseQuizScreen
 import ru.trfx.dailyquiz.ui.component.Button
 import ru.trfx.dailyquiz.ui.component.Card
 import ru.trfx.dailyquiz.ui.component.ComboBox
