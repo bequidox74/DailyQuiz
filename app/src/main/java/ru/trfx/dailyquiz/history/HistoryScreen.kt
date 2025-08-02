@@ -5,7 +5,7 @@ import androidx.compose.ui.res.stringResource
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
 import ru.trfx.dailyquiz.R
-import ru.trfx.dailyquiz.quiz.BaseQuizScreen
+import ru.trfx.dailyquiz.quiz.screen.BaseQuizScreen
 
 @Destination<RootGraph>
 @Composable

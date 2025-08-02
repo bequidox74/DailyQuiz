@@ -1,4 +1,4 @@
-package ru.trfx.dailyquiz.quiz
+package ru.trfx.dailyquiz.quiz.screen.start
 
 import androidx.lifecycle.ViewModel
 

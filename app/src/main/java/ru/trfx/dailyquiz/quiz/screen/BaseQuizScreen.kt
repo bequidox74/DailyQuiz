@@ -1,4 +1,4 @@
-package ru.trfx.dailyquiz.quiz
+package ru.trfx.dailyquiz.quiz.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

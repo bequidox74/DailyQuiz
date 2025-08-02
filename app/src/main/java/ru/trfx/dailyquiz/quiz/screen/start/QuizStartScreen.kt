@@ -1,4 +1,4 @@
-package ru.trfx.dailyquiz.quiz
+package ru.trfx.dailyquiz.quiz.screen.start
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.background
@@ -26,6 +26,9 @@ import androidx.compose.ui.unit.sp
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
 import ru.trfx.dailyquiz.R
+import ru.trfx.dailyquiz.quiz.Category
+import ru.trfx.dailyquiz.quiz.Difficulty
+import ru.trfx.dailyquiz.quiz.screen.BaseQuizScreen
 import ru.trfx.dailyquiz.ui.component.Button
 import ru.trfx.dailyquiz.ui.component.Card
 import ru.trfx.dailyquiz.ui.component.ComboBox
