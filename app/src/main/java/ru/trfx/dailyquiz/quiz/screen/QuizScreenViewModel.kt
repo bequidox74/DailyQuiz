@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.trfx.dailyquiz.quiz.Category
 import ru.trfx.dailyquiz.quiz.Difficulty
-import ru.trfx.dailyquiz.quiz.Quiz
+import ru.trfx.dailyquiz.quiz.QuizHandler
 import ru.trfx.dailyquiz.quiz.repository.QuizRepository
 import ru.trfx.dailyquiz.ui.component.AnswerOptionState
 import ru.trfx.dailyquiz.ui.component.RadioButtonState
@@ -20,7 +20,8 @@ import timber.log.Timber
 sealed interface QuizScreenUiState {
     data object Loading : QuizScreenUiState
     data object Error : QuizScreenUiState
-    data class Loaded(val quiz: Quiz) : QuizScreenUiState
+    data object Loaded : QuizScreenUiState
+    data object Results : QuizScreenUiState
 }
 
 class QuizScreenViewModel(
@@ -54,14 +55,15 @@ class QuizScreenViewModel(
     val timeoutEventFlow = _timeoutEventFlow.asSharedFlow()
 
     private var selectedOptionIndex = -1
-    private val answers = mutableListOf<Int>()
 
     fun loadQuiz(category: Category?, difficulty: Difficulty?) {
         viewModelScope.launch {
             Timber.i("Loading quiz ($category, $difficulty)")
             try {
                 // Prepare quiz
+                QuizHandler.currentQuiz = null
                 val quiz = quizRepository.getQuiz(5, category, difficulty)
+                QuizHandler.currentQuiz = quiz
                 _elapsedSeconds.value = 0f
                 _questionNumber.value = 1
                 _answerOptions.value = quiz.questions[0].options.map {
@@ -83,9 +85,8 @@ class QuizScreenViewModel(
                 }
 
                 // Update state
-                _state.value = QuizScreenUiState.Loaded(quiz)
+                _state.value = QuizScreenUiState.Loaded
                 selectedOptionIndex = -1
-                answers.clear()
             } catch (e: Exception) {
                 _state.value = QuizScreenUiState.Error
             }
@@ -95,18 +96,17 @@ class QuizScreenViewModel(
     fun advanceQuiz() {
         Timber.i("Advancing quiz")
         check(selectedOptionIndex >= 0)
-        val state = _state.value as QuizScreenUiState.Loaded
 
-        answers += selectedOptionIndex
+        QuizHandler.recordAnswer(selectedOptionIndex)
         selectedOptionIndex = -1
 
-        if (questionNumber.value == state.quiz.questions.size) {
+        if (questionNumber.value == QuizHandler.questionCount) {
             Timber.i("Reached last question, showing quiz results")
-            TODO()
+            _state.value = QuizScreenUiState.Results
         } else {
             _buttonEnabled.value = false
             _questionNumber.value++
-            _answerOptions.value = state.quiz.questions[_questionNumber.value - 1].options.map {
+            _answerOptions.value = QuizHandler.getQuestion(_questionNumber.value).options.map {
                 AnswerOptionState(it, RadioButtonState.Off)
             }
         }

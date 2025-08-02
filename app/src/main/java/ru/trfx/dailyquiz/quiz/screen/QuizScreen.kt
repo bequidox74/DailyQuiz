@@ -19,6 +19,7 @@ import org.koin.androidx.compose.koinViewModel
 import ru.trfx.dailyquiz.R
 import ru.trfx.dailyquiz.quiz.Category
 import ru.trfx.dailyquiz.quiz.Difficulty
+import ru.trfx.dailyquiz.quiz.QuizHandler
 import ru.trfx.dailyquiz.ui.component.QuestionCard
 import ru.trfx.dailyquiz.ui.component.Throbber
 
@@ -42,6 +43,10 @@ fun QuizScreen(
             navigator.navigate(WelcomeScreenDestination)
         }
 
+        QuizScreenUiState.Results -> {
+            TODO()
+        }
+
         QuizScreenUiState.Loading -> {
             Throbber(
                 modifier = Modifier
@@ -50,14 +55,11 @@ fun QuizScreen(
             )
         }
 
-        is QuizScreenUiState.Loaded -> {
-            @Suppress("NAME_SHADOWING")
-            val state = state as QuizScreenUiState.Loaded
-
+        QuizScreenUiState.Loaded -> {
             val questionNumber by viewModel.questionNumber.collectAsStateWithLifecycle()
             val answerOptions by viewModel.answerOptions.collectAsStateWithLifecycle()
             val buttonEnabled by viewModel.buttonEnabled.collectAsStateWithLifecycle()
-            val question = state.quiz.questions[questionNumber - 1]
+            val question = QuizHandler.getQuestion(questionNumber)
 
             val realElapsedSeconds by viewModel.elapsedSeconds.collectAsStateWithLifecycle()
             val elapsedSeconds by animateFloatAsState(realElapsedSeconds)
@@ -71,12 +73,12 @@ fun QuizScreen(
                     elapsedSeconds = elapsedSeconds,
                     totalSeconds = viewModel.totalSeconds,
                     currentQuestionNumber = questionNumber,
-                    questionCount = state.quiz.questions.size,
+                    questionCount = QuizHandler.questionCount,
                     title = question.title,
                     options = answerOptions,
                     onOptionClick = viewModel::onOptionSelected,
                     buttonText = stringResource(
-                        if (questionNumber < state.quiz.questions.size) {
+                        if (questionNumber < QuizHandler.questionCount) {
                             R.string.button_next
                         } else R.string.button_end_quiz
                     ).uppercase(),
