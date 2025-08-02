@@ -4,12 +4,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -57,75 +55,68 @@ fun WelcomeScreen(
 private fun WelcomeScreenContent(
     onStart: () -> Unit,
     onHistory: () -> Unit,
-    modifier: Modifier = Modifier,
 ) {
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(color = Colors.Blue),
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .padding(top = 80.dp)
+            .fillMaxWidth()
+            .wrapContentSize()
+            .clip(Shapes.Round)
+            .clickable(onClick = onHistory)
+            .background(color = Colors.White, shape = Shapes.Round)
+            .height(42.dp)
+            .padding(horizontal = 12.dp),
     ) {
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .padding(top = 80.dp)
-                .fillMaxWidth()
-                .wrapContentSize()
-                .clip(Shapes.Round)
-                .clickable(onClick = onHistory)
-                .background(color = Colors.White, shape = Shapes.Round)
-                .height(42.dp)
-                .padding(horizontal = 12.dp),
-        ) {
-            Text(
-                text = stringResource(R.string.screen_history),
-                color = Colors.Blue,
-                fontSize = 12.sp,
-                fontWeight = FontWeight.SemiBold,
-            )
-            Icon(
-                painter = painterResource(R.drawable.ic_history),
-                contentDescription = null,
-                tint = Color.Unspecified,
-            )
-        }
+        Text(
+            text = stringResource(R.string.screen_history),
+            color = Colors.Blue,
+            fontSize = 12.sp,
+            fontWeight = FontWeight.SemiBold,
+        )
+        Icon(
+            painter = painterResource(R.drawable.ic_history),
+            contentDescription = null,
+            tint = Color.Unspecified,
+        )
+    }
 
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .fillMaxHeight()
+            .wrapContentSize()
+            .padding(horizontal = 24.dp)
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+    ) {
+        Image(
+            painter = painterResource(R.drawable.img_logo),
+            contentDescription = null,
+            modifier = Modifier.fillMaxWidth(),
+        )
+        Spacer(Modifier.height(42.dp))
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
-                .fillMaxHeight()
-                .wrapContentSize()
-                .padding(horizontal = 24.dp)
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
+                .background(color = Colors.White, shape = Shapes.Card)
+                .padding(24.dp)
+                .fillMaxWidth(),
         ) {
-            Image(
-                painter = painterResource(R.drawable.img_logo),
-                contentDescription = null,
-                modifier = Modifier.fillMaxWidth(),
+            Text(
+                text = stringResource(R.string.text_welcome),
+                color = Colors.Black,
+                fontSize = 28.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
             )
             Spacer(Modifier.height(42.dp))
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-                    .background(color = Colors.White, shape = Shapes.Card)
-                    .padding(24.dp)
-                    .fillMaxWidth(),
-            ) {
-                Text(
-                    text = stringResource(R.string.text_welcome),
-                    color = Colors.Black,
-                    fontSize = 28.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center,
-                )
-                Spacer(Modifier.height(42.dp))
-                Button(
-                    text = stringResource(R.string.button_start_quiz).uppercase(),
-                    onClick = onStart,
-                    modifier = Modifier.fillMaxWidth(),
-                )
-            }
+            Button(
+                text = stringResource(R.string.button_start_quiz).uppercase(),
+                onClick = onStart,
+                modifier = Modifier.fillMaxWidth(),
+            )
         }
     }
 }

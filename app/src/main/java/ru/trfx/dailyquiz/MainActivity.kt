@@ -4,9 +4,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.ui.Modifier
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.generated.NavGraphs
 import org.koin.compose.KoinApplication
+import ru.trfx.dailyquiz.ui.theme.Colors
 import ru.trfx.dailyquiz.ui.theme.DailyQuizTheme
 import ru.trfx.dailyquiz.ui.uiModule
 import timber.log.Timber
@@ -25,7 +30,13 @@ class MainActivity : ComponentActivity() {
                 modules(uiModule)
             }) {
                 DailyQuizTheme {
-                    DestinationsNavHost(NavGraphs.root)
+                    Box(
+                        Modifier
+                            .background(Colors.Blue)
+                            .fillMaxSize()
+                    ) {
+                        DestinationsNavHost(NavGraphs.root)
+                    }
                 }
             }
         }
