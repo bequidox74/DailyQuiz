@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
+import com.ramcosta.composedestinations.generated.destinations.HistoryScreenDestination
 import com.ramcosta.composedestinations.generated.destinations.QuizStartScreenDestination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import ru.trfx.dailyquiz.ui.component.Button
@@ -46,12 +47,16 @@ fun WelcomeScreen(
         onStart = {
             navigator.navigate(QuizStartScreenDestination)
         },
+        onHistory = {
+            navigator.navigate(HistoryScreenDestination)
+        }
     )
 }
 
 @Composable
 private fun WelcomeScreenContent(
     onStart: () -> Unit,
+    onHistory: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -67,13 +72,13 @@ private fun WelcomeScreenContent(
                 .fillMaxWidth()
                 .wrapContentSize()
                 .clip(Shapes.Round)
-                .clickable { }
+                .clickable(onClick = onHistory)
                 .background(color = Colors.White, shape = Shapes.Round)
                 .height(42.dp)
                 .padding(horizontal = 12.dp),
         ) {
             Text(
-                text = stringResource(R.string.button_history),
+                text = stringResource(R.string.screen_history),
                 color = Colors.Blue,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.SemiBold,
@@ -129,6 +134,9 @@ private fun WelcomeScreenContent(
 @Composable
 private fun Preview() {
     DailyQuizTheme {
-        WelcomeScreenContent(onStart = {})
+        WelcomeScreenContent(
+            onStart = {},
+            onHistory = {},
+        )
     }
 }

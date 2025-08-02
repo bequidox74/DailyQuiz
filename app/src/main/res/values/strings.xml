@@ -55,6 +55,6 @@
     <string name="label_category">Категория</string>
     <string name="label_difficulty">Сложность</string>
     <string name="button_start_quiz">Начать викторину</string>
-    <string name="button_history">История</string>
+    <string name="screen_history">История</string>
     <string name="text_welcome">Добро пожаловать в DailyQuiz!</string>
 </resources>
