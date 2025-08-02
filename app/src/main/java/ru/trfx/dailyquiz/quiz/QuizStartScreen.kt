@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -25,6 +24,7 @@ import ru.trfx.dailyquiz.ui.component.Button
 import ru.trfx.dailyquiz.ui.component.Card
 import ru.trfx.dailyquiz.ui.component.ComboBox
 import ru.trfx.dailyquiz.ui.theme.Colors
+import timber.log.Timber
 
 @Destination<RootGraph>
 @Composable
@@ -37,10 +37,18 @@ fun QuizStartScreen(
     QuizStartScreen(
         categories = viewModel.categories.map { stringResource(it.resId) },
         selectedCategoryIndex = selectedCategoryIndex,
-        onCategorySelect = {},
-        difficulties = viewModel.categories.map { stringResource(it.resId) },
+        onCategorySelect = { index ->
+            Timber.d("category selected: $index")
+            viewModel.selectedCategoryIndex.value = index
+        },
+        difficulties = viewModel.difficulties.map { stringResource(it.resId) },
         selectedDifficultyIndex = selectedDifficultyIndex,
-        onDifficultySelect = {},
+        onDifficultySelect = { index ->
+            Timber.d("difficulty selected: $index")
+            viewModel.selectedDifficultyIndex.value = index
+        },
+        buttonEnabled = selectedCategoryIndex >= 0 && selectedDifficultyIndex >= 0,
+        onStart = viewModel::startQuiz,
     )
 }
 
@@ -52,6 +60,8 @@ fun QuizStartScreen(
     difficulties: List<String>,
     selectedDifficultyIndex: Int,
     onDifficultySelect: (Int) -> Unit,
+    buttonEnabled: Boolean,
+    onStart: () -> Unit,
 ) {
     BaseQuizScreen(
         title = null,
@@ -89,8 +99,8 @@ fun QuizStartScreen(
             Spacer(Modifier.height(48.dp))
             Button(
                 text = stringResource(R.string.button_start_quiz).uppercase(),
-                onClick = {},
-                enabled = false,
+                onClick = onStart,
+                enabled = buttonEnabled,
             )
         }
     }
@@ -108,5 +118,7 @@ private fun Preview() {
         difficulties = listOf("X", "Y", "Z"),
         selectedDifficultyIndex = difficulty,
         onDifficultySelect = { difficulty = it },
+        buttonEnabled = false,
+        onStart = {},
     )
 }
