@@ -66,7 +66,7 @@ fun AnswerOption(
             }
             .padding(16.dp),
     ) {
-        RadioButton(state = state.buttonState, onClick = {}, enabled = false)
+        RadioButton(state = state.buttonState)
         Text(
             text = state.text,
             fontSize = 14.sp,

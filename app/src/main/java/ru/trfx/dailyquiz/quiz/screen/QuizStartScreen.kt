@@ -13,11 +13,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
+import com.ramcosta.composedestinations.generated.destinations.QuizScreenDestination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import ru.trfx.dailyquiz.R
 import ru.trfx.dailyquiz.quiz.Category
 import ru.trfx.dailyquiz.quiz.Difficulty
@@ -28,16 +29,16 @@ import ru.trfx.dailyquiz.ui.theme.Colors
 
 @Destination<RootGraph>
 @Composable
-fun QuizStartScreen() {
-    BaseQuizScreen(
+fun QuizStartScreen(navigator: DestinationsNavigator) {
+    var selectedCategory by remember { mutableIntStateOf(-1) }
+    var selectedDifficulty by remember { mutableIntStateOf(-1) }
+
+    TemplateQuizScreen(
         title = null,
         showBackButton = false,
-        onBackButtonClick = {},
+        onBackButtonClick = { navigator.navigateUp() },
     ) {
         Card {
-            var selectedCategory by remember { mutableIntStateOf(-1) }
-            var selectedDifficulty by remember { mutableIntStateOf(-1) }
-
             val resources = LocalContext.current.resources
             val categories =
                 remember { Category.entries.map { resources.getString(it.resId) } }
@@ -74,15 +75,16 @@ fun QuizStartScreen() {
             Spacer(Modifier.height(48.dp))
             Button(
                 text = stringResource(R.string.button_start_quiz).uppercase(),
-                onClick = {},
+                onClick = {
+                    navigator.navigate(
+                        QuizScreenDestination(
+                            Category.entries[selectedCategory],
+                            Difficulty.entries[selectedDifficulty],
+                        )
+                    )
+                },
                 enabled = selectedCategory >= 0 && selectedDifficulty >= 0,
             )
         }
     }
-}
-
-@Preview
-@Composable
-private fun Preview() {
-    QuizStartScreen()
 }

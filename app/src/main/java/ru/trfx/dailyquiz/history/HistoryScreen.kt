@@ -5,12 +5,12 @@ import androidx.compose.ui.res.stringResource
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
 import ru.trfx.dailyquiz.R
-import ru.trfx.dailyquiz.quiz.screen.BaseQuizScreen
+import ru.trfx.dailyquiz.quiz.screen.TemplateQuizScreen
 
 @Destination<RootGraph>
 @Composable
 fun HistoryScreen() {
-    BaseQuizScreen(
+    TemplateQuizScreen(
         title = stringResource(R.string.screen_history),
         showBackButton = false,
         onBackButtonClick = {},

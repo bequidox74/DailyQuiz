@@ -2,12 +2,9 @@ package ru.trfx.dailyquiz.ui.component
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,32 +29,23 @@ enum class RadioButtonState(
 @Composable
 fun RadioButton(
     state: RadioButtonState,
-    onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    interactionSource: MutableInteractionSource? = null,
 ) {
-    IconButton(
-        onClick = onClick,
-        enabled = enabled,
-        modifier = modifier.size(24.dp),
-        interactionSource = interactionSource,
-    ) {
-        Icon(
-            painter = painterResource(state.iconId),
-            contentDescription = stringResource(state.textId),
-            tint = Color.Unspecified,
-        )
-    }
+    Icon(
+        painter = painterResource(state.iconId),
+        contentDescription = stringResource(state.textId),
+        tint = Color.Unspecified,
+        modifier = modifier,
+    )
 }
 
 @Preview
 @Composable
 private fun PreviewAll() {
     Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-        RadioButton(RadioButtonState.Off, onClick = {})
-        RadioButton(RadioButtonState.Selected, onClick = {})
-        RadioButton(RadioButtonState.Correct, onClick = {})
-        RadioButton(RadioButtonState.Incorrect, onClick = {})
+        RadioButton(RadioButtonState.Off)
+        RadioButton(RadioButtonState.Selected)
+        RadioButton(RadioButtonState.Correct)
+        RadioButton(RadioButtonState.Incorrect)
     }
 }

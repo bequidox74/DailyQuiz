@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             KoinApplication(application = {
-                modules(uiModule)
+                modules(uiModule, dataModule)
             }) {
                 DailyQuizTheme {
                     Box(

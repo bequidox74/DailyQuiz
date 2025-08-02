@@ -29,7 +29,7 @@ import ru.trfx.dailyquiz.ui.theme.Colors
 import ru.trfx.dailyquiz.ui.theme.Shapes
 
 @Composable
-inline fun BaseQuizScreen(
+inline fun TemplateQuizScreen(
     title: String?,
     showBackButton: Boolean,
     noinline onBackButtonClick: () -> Unit,
@@ -95,7 +95,7 @@ inline fun BaseQuizScreen(
 @Preview
 @Composable
 private fun PreviewNoTitle() {
-    BaseQuizScreen(
+    TemplateQuizScreen(
         title = null,
         showBackButton = true,
         onBackButtonClick = {},
@@ -112,7 +112,7 @@ private fun PreviewNoTitle() {
 @Preview
 @Composable
 private fun PreviewTitle() {
-    BaseQuizScreen(
+    TemplateQuizScreen(
         title = "Lorem ipsum",
         showBackButton = true,
         onBackButtonClick = {},

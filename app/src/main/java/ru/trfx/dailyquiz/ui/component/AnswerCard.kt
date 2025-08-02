@@ -30,7 +30,7 @@ import ru.trfx.dailyquiz.ui.theme.Shapes
 fun AnswerCardOptions(
     title: String,
     options: List<AnswerOptionState>,
-    onOptionClick: (Int, AnswerOptionState) -> Unit,
+    onOptionClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
 ) {
@@ -54,7 +54,7 @@ fun AnswerCardOptions(
                 AnswerOption(
                     state = state,
                     enabled = enabled,
-                    onClick = { onOptionClick(index, state) }
+                    onClick = { onOptionClick(index) }
                 )
             }
         }
@@ -94,7 +94,7 @@ fun HistoryAnswerCard(
         AnswerCardOptions(
             title = title,
             options = options,
-            onOptionClick = { _, _ -> },
+            onOptionClick = {},
             enabled = false,
         )
     }
@@ -104,10 +104,10 @@ fun HistoryAnswerCard(
 fun QuestionCard(
     elapsedSeconds: Float,
     totalSeconds: Float,
-    number: Int,
-    maxNumber: Int,
+    currentQuestionNumber: Int,
+    questionCount: Int,
     title: String,
-    onOptionClick: (Int, AnswerOptionState) -> Unit,
+    onOptionClick: (Int) -> Unit,
     options: List<AnswerOptionState>,
     modifier: Modifier = Modifier,
 ) {
@@ -123,7 +123,7 @@ fun QuestionCard(
         )
         Spacer(Modifier.height(24.dp))
         Text(
-            text = stringResource(R.string.question_number, number, maxNumber),
+            text = stringResource(R.string.question_number, currentQuestionNumber, questionCount),
             color = Colors.Lavender,
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
@@ -151,7 +151,7 @@ private fun PreviewOptions() {
     AnswerCardOptions(
         title = previewQuestion,
         options = previewOptions,
-        onOptionClick = { _, _ -> },
+        onOptionClick = {},
     )
 }
 
@@ -174,11 +174,11 @@ private fun PreviewQuestion() {
         QuestionCard(
             elapsedSeconds = 150f,
             totalSeconds = 300f,
-            number = 3,
-            maxNumber = 5,
+            currentQuestionNumber = 3,
+            questionCount = 5,
             title = previewQuestion,
             options = previewOptions,
-            onOptionClick = { _, _ -> },
+            onOptionClick = {},
         )
     }
 }

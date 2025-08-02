@@ -5,6 +5,7 @@ import ru.trfx.dailyquiz.quiz.Category
 import ru.trfx.dailyquiz.quiz.Difficulty
 import ru.trfx.dailyquiz.quiz.Question
 import ru.trfx.dailyquiz.quiz.Quiz
+import timber.log.Timber
 
 class MockQuizRepository : QuizRepository {
     override suspend fun getQuiz(
@@ -12,7 +13,9 @@ class MockQuizRepository : QuizRepository {
         category: Category?,
         difficulty: Difficulty?,
     ): Quiz {
+        Timber.d("Mock quiz requested")
         delay(400)
+        Timber.d("Returning mock quiz")
         return Quiz(
             questions = listOf(
                 Question(
