@@ -14,7 +14,7 @@ class MockQuizRepository : QuizRepository {
         difficulty: Difficulty?,
     ): Quiz {
         Timber.d("Mock quiz requested")
-        delay(400)
+        delay(700)
         Timber.d("Returning mock quiz")
         return Quiz(
             questions = listOf(
@@ -32,6 +32,16 @@ class MockQuizRepository : QuizRepository {
                     title = "Lorem ipsum C?",
                     options = listOf("A", "B", "C", "D"),
                     correctOptionIndex = 2,
+                ),
+                Question(
+                    title = "Lorem ipsum D?",
+                    options = listOf("A", "B", "C", "D"),
+                    correctOptionIndex = 3,
+                ),
+                Question(
+                    title = "Lorem ipsum E?",
+                    options = listOf("A", "B", "C", "D"),
+                    correctOptionIndex = 0,
                 ),
             ),
             category = null,

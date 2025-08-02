@@ -60,4 +60,6 @@
     <string name="toast_error">Ошибка! Попробуйте ещё раз</string>
     <string name="button_next">Далее</string>
     <string name="button_end_quiz">Завершить</string>
+    <string name="title_results">Результаты</string>
+    <string name="text_no_going_back">Вернуться к предыдущим вопросам нельзя</string>
 </resources>
