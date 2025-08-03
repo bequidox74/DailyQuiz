@@ -1,5 +1,6 @@
 package ru.trfx.dailyquiz.ui.component
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.Indication
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,6 +39,9 @@ fun Button(
         if (invertColors) Colors.Purple else Colors.White
     }
 
+    val bodyColorAnimated by animateColorAsState(bodyColor)
+    val textColorAnimated by animateColorAsState(textColor)
+
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
@@ -49,11 +54,11 @@ fun Button(
             )
             .height(50.dp)
             .fillMaxWidth()
-            .background(color = bodyColor, shape = Shapes.Button),
+            .background(color = bodyColorAnimated, shape = Shapes.Button),
     ) {
         Text(
             text = text,
-            color = textColor,
+            color = textColorAnimated,
             fontSize = 16.sp,
             fontWeight = FontWeight.Black,
         )
