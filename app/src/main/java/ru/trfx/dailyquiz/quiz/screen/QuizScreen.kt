@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -78,32 +79,36 @@ fun QuizScreen(
                 showBackButton = true,
                 onBackButtonClick = { navigator.navigate(WelcomeScreenDestination) }
             ) {
-                QuestionCard(
-                    elapsedSeconds = elapsedSeconds,
-                    totalSeconds = viewModel.totalSeconds,
-                    currentQuestionNumber = questionNumber,
-                    questionCount = questionCount,
-                    title = viewModel.currentQuestion.title,
-                    options = answerOptions,
-                    onOptionClick = viewModel::onOptionSelected,
-                    optionsEnabled = optionsEnabled,
-                    buttonText = stringResource(
-                        if (questionNumber < questionCount) {
-                            R.string.button_next
-                        } else R.string.button_end_quiz
-                    ).uppercase(),
-                    buttonEnabled = buttonEnabled,
-                    onButtonClick = viewModel::advanceQuiz,
-                )
-                Spacer(Modifier.height(8.dp))
-                Text(
-                    text = stringResource(R.string.text_no_going_back),
-                    color = Colors.White,
-                    fontSize = 10.sp,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                )
+                LazyColumn {
+                    item {
+                        QuestionCard(
+                            elapsedSeconds = elapsedSeconds,
+                            totalSeconds = viewModel.totalSeconds,
+                            currentQuestionNumber = questionNumber,
+                            questionCount = questionCount,
+                            title = viewModel.currentQuestion.title,
+                            options = answerOptions,
+                            onOptionClick = viewModel::onOptionSelected,
+                            optionsEnabled = optionsEnabled,
+                            buttonText = stringResource(
+                                if (questionNumber < questionCount) {
+                                    R.string.button_next
+                                } else R.string.button_end_quiz
+                            ).uppercase(),
+                            buttonEnabled = buttonEnabled,
+                            onButtonClick = viewModel::advanceQuiz,
+                        )
+                        Spacer(Modifier.height(8.dp))
+                        Text(
+                            text = stringResource(R.string.text_no_going_back),
+                            color = Colors.White,
+                            fontSize = 10.sp,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                        )
+                    }
+                }
             }
         }
     }

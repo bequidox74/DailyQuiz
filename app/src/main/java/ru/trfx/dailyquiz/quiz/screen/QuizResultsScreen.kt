@@ -2,6 +2,7 @@ package ru.trfx.dailyquiz.quiz.screen
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -38,48 +39,53 @@ fun QuizResultsScreen(navigator: DestinationsNavigator) {
         showBackButton = false,
         onBackButtonClick = {},
     ) {
-        ResultsCard(
-            stars = stars,
-            onRestart = { navigator.navigate(WelcomeScreenDestination) },
-        )
-
-        for (i in quiz.questions.indices) {
-            val question = quiz.questions[i]
-            val answer = answers[i]
-
-            val options = question.options.mapIndexed { j, text ->
-                @Suppress("CascadeIf")
-                AnswerOptionState(
-                    text = text,
-                    buttonState = if (j == question.correctOptionIndex) {
-                        RadioButtonState.Correct
-                    } else if (j == answer) {
-                        RadioButtonState.Incorrect
-                    } else RadioButtonState.Off
+        LazyColumn {
+            item {
+                ResultsCard(
+                    stars = stars,
+                    onRestart = { navigator.navigate(WelcomeScreenDestination) },
                 )
             }
 
-            Spacer(Modifier.height(24.dp))
-            HistoryAnswerCard(
-                questionNumber = i + 1,
-                questionCount = quiz.questions.size,
-                title = question.title,
-                state = if (answer == question.correctOptionIndex) {
-                    RadioButtonState.Correct
-                } else {
-                    RadioButtonState.Incorrect
-                },
-                options = options,
-            )
+            items(count = quiz.questions.size, key = { it }) { i ->
+                val question = quiz.questions[i]
+                val answer = answers[i]
+
+                val options = question.options.mapIndexed { j, text ->
+                    @Suppress("CascadeIf")
+                    AnswerOptionState(
+                        text = text,
+                        buttonState = if (j == question.correctOptionIndex) {
+                            RadioButtonState.Correct
+                        } else if (j == answer) {
+                            RadioButtonState.Incorrect
+                        } else RadioButtonState.Off
+                    )
+                }
+
+                Spacer(Modifier.height(24.dp))
+                HistoryAnswerCard(
+                    questionNumber = i + 1,
+                    questionCount = quiz.questions.size,
+                    title = question.title,
+                    state = if (answer == question.correctOptionIndex) {
+                        RadioButtonState.Correct
+                    } else {
+                        RadioButtonState.Incorrect
+                    },
+                    options = options,
+                )
+            }
+
+            item {
+                Spacer(Modifier.height(24.dp))
+                Button(
+                    text = stringResource(R.string.button_restart).uppercase(),
+                    onClick = { navigator.navigate(WelcomeScreenDestination) },
+                    invertColors = true,
+                )
+                Spacer(Modifier.height(24.dp))
+            }
         }
-
-        Spacer(Modifier.height(24.dp))
-        Button(
-            text = stringResource(R.string.button_restart).uppercase(),
-            onClick = { navigator.navigate(WelcomeScreenDestination) },
-            invertColors = true,
-        )
-
-        Spacer(Modifier.height(24.dp))
     }
 }

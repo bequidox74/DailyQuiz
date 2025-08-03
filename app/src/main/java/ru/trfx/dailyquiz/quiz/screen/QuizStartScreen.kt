@@ -2,6 +2,7 @@ package ru.trfx.dailyquiz.quiz.screen
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -38,53 +39,57 @@ fun QuizStartScreen(navigator: DestinationsNavigator) {
         showBackButton = false,
         onBackButtonClick = { navigator.navigateUp() },
     ) {
-        Card {
-            val resources = LocalContext.current.resources
-            val categories =
-                remember { Category.entries.map { resources.getString(it.resId) } }
-            val difficulties =
-                remember { Difficulty.entries.map { resources.getString(it.resId) } }
+        LazyColumn {
+            item {
+                Card {
+                    val resources = LocalContext.current.resources
+                    val categories =
+                        remember { Category.entries.map { resources.getString(it.resId) } }
+                    val difficulties =
+                        remember { Difficulty.entries.map { resources.getString(it.resId) } }
 
-            Text(
-                text = stringResource(R.string.text_almost_ready),
-                color = Colors.Black,
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-            )
-            Spacer(Modifier.height(8.dp))
-            Text(
-                text = stringResource(R.string.text_filters_description),
-                color = Colors.Black,
-                fontSize = 16.sp,
-                textAlign = TextAlign.Center
-            )
-            Spacer(Modifier.height(48.dp))
-            ComboBox(
-                title = stringResource(R.string.label_category),
-                options = categories,
-                selectionIndex = selectedCategory,
-                onOptionSelect = { selectedCategory = it },
-            )
-            Spacer(Modifier.height(16.dp))
-            ComboBox(
-                title = stringResource(R.string.label_difficulty),
-                options = difficulties,
-                selectionIndex = selectedDifficulty,
-                onOptionSelect = { selectedDifficulty = it },
-            )
-            Spacer(Modifier.height(48.dp))
-            Button(
-                text = stringResource(R.string.button_start_quiz).uppercase(),
-                onClick = {
-                    navigator.navigate(
-                        QuizScreenDestination(
-                            Category.entries[selectedCategory],
-                            Difficulty.entries[selectedDifficulty],
-                        )
+                    Text(
+                        text = stringResource(R.string.text_almost_ready),
+                        color = Colors.Black,
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold,
                     )
-                },
-                enabled = selectedCategory >= 0 && selectedDifficulty >= 0,
-            )
+                    Spacer(Modifier.height(8.dp))
+                    Text(
+                        text = stringResource(R.string.text_filters_description),
+                        color = Colors.Black,
+                        fontSize = 16.sp,
+                        textAlign = TextAlign.Center
+                    )
+                    Spacer(Modifier.height(48.dp))
+                    ComboBox(
+                        title = stringResource(R.string.label_category),
+                        options = categories,
+                        selectionIndex = selectedCategory,
+                        onOptionSelect = { selectedCategory = it },
+                    )
+                    Spacer(Modifier.height(16.dp))
+                    ComboBox(
+                        title = stringResource(R.string.label_difficulty),
+                        options = difficulties,
+                        selectionIndex = selectedDifficulty,
+                        onOptionSelect = { selectedDifficulty = it },
+                    )
+                    Spacer(Modifier.height(48.dp))
+                    Button(
+                        text = stringResource(R.string.button_start_quiz).uppercase(),
+                        onClick = {
+                            navigator.navigate(
+                                QuizScreenDestination(
+                                    Category.entries[selectedCategory],
+                                    Difficulty.entries[selectedDifficulty],
+                                )
+                            )
+                        },
+                        enabled = selectedCategory >= 0 && selectedDifficulty >= 0,
+                    )
+                }
+            }
         }
     }
 }

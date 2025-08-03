@@ -12,8 +12,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -90,9 +88,7 @@ inline fun TemplateQuizScreen(
         }
 
         Spacer(Modifier.height(42.dp))
-        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-            content()
-        }
+        content()
     }
 }
 
