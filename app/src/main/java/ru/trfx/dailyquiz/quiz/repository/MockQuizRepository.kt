@@ -13,7 +13,7 @@ class MockQuizRepository : QuizRepository {
     override val lastQuiz get() = _lastQuiz
 
     private val history = mutableListOf<CompletedQuiz>()
-    private var lastId = 0
+    private var lastId = 1
 
     init {
         history += CompletedQuiz(
@@ -85,6 +85,7 @@ class MockQuizRepository : QuizRepository {
 
     override suspend fun saveQuizResults(quiz: CompletedQuiz): CompletedQuiz {
         Timber.i("Saving quiz results")
+        require(quiz.id == null)
         delay(300)
         _lastQuiz = quiz
         history += quiz

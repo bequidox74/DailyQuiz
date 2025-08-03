@@ -3,6 +3,7 @@ package ru.trfx.dailyquiz.quiz
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Immutable
 import ru.trfx.dailyquiz.R
+import java.time.Instant
 
 enum class Difficulty(@StringRes val resId: Int) {
     Easy(R.string.difficulty_easy),
@@ -55,6 +56,7 @@ data class Question(
 data class CompletedQuiz(
     val quiz: Quiz,
     val answers: List<Int>,
+    val creationInstant: Instant = Instant.now(),
     val id: Int? = null,
 ) {
     init {
