@@ -20,25 +20,35 @@ class MockQuizRepository : QuizRepository {
             quiz = Quiz(
                 questions = listOf(
                     Question(
-                        title = "Lorem ipsum X?",
+                        title = "Lorem ipsum A?",
                         options = listOf("A", "B", "C", "D"),
                         correctOptionIndex = 0,
                     ),
                     Question(
-                        title = "Lorem ipsum Y?",
+                        title = "Lorem ipsum B?",
                         options = listOf("A", "B", "C", "D"),
-                        correctOptionIndex = 1,
+                        correctOptionIndex = 0,
                     ),
                     Question(
-                        title = "Lorem ipsum Z?",
+                        title = "Lorem ipsum C?",
                         options = listOf("A", "B", "C", "D"),
-                        correctOptionIndex = 2,
+                        correctOptionIndex = 0,
+                    ),
+                    Question(
+                        title = "Lorem ipsum D?",
+                        options = listOf("A", "B", "C", "D"),
+                        correctOptionIndex = 0,
+                    ),
+                    Question(
+                        title = "Lorem ipsum E?",
+                        options = listOf("A", "B", "C", "D"),
+                        correctOptionIndex = 0,
                     ),
                 ),
                 category = Category.Film,
                 difficulty = Difficulty.Easy,
             ),
-            answers = listOf(0, 2, 1),
+            answers = listOf(0, 2, 1, 3, 0),
             id = lastId++,
         )
     }

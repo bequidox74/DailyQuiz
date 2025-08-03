@@ -4,6 +4,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -13,6 +18,7 @@ import com.ramcosta.composedestinations.generated.destinations.WelcomeScreenDest
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import org.koin.compose.koinInject
 import ru.trfx.dailyquiz.R
+import ru.trfx.dailyquiz.quiz.CompletedQuiz
 import ru.trfx.dailyquiz.quiz.repository.QuizRepository
 import ru.trfx.dailyquiz.ui.component.AnswerOptionState
 import ru.trfx.dailyquiz.ui.component.Button
@@ -27,22 +33,35 @@ fun QuizResultsScreen(
     quizId: Int? = null,
 ) {
     val quizRepository = koinInject<QuizRepository>()
-    val completedQuiz = quizRepository.lastQuiz!! // TODO: loading from history
-    val quiz = completedQuiz.quiz
-    val answers = completedQuiz.answers
+    var completedQuiz by remember { mutableStateOf<CompletedQuiz?>(null) }
 
-    var stars = 0
-    for (i in quiz.questions.indices) {
-        val question = quiz.questions[i]
-        if (answers[i] == question.correctOptionIndex) stars++
+    LaunchedEffect(Unit) {
+        completedQuiz = if (quizId == null) {
+            quizRepository.lastQuiz!!
+        } else {
+            quizRepository.getSavedQuiz(quizId)
+        }
     }
+
 
     TemplateQuizScreen(
         title = stringResource(R.string.title_results),
         showBackButton = false,
         onBackButtonClick = {},
     ) {
+        if (completedQuiz == null) return@TemplateQuizScreen
+        @Suppress("NAME_SHADOWING") val completedQuiz = completedQuiz!!
+
         LazyColumn {
+            val quiz = completedQuiz.quiz
+            val answers = completedQuiz.answers
+
+            var stars = 0
+            for (i in quiz.questions.indices) {
+                val question = quiz.questions[i]
+                if (answers[i] == question.correctOptionIndex) stars++
+            }
+
             item {
                 ResultsCard(
                     stars = stars,
