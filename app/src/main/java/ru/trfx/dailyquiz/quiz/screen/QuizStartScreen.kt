@@ -43,10 +43,12 @@ fun QuizStartScreen(navigator: DestinationsNavigator) {
             item {
                 Card {
                     val resources = LocalContext.current.resources
-                    val categories =
-                        remember { Category.entries.map { resources.getString(it.resId) } }
-                    val difficulties =
-                        remember { Difficulty.entries.map { resources.getString(it.resId) } }
+                    val categories = remember {
+                        Category.entries.map { resources.getString(it.resId) }
+                    }
+                    val difficulties = remember {
+                        Difficulty.entries.map { resources.getString(it.resId) }
+                    }
 
                     Text(
                         text = stringResource(R.string.text_almost_ready),

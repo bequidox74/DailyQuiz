@@ -10,8 +10,8 @@ interface QuizRepository {
 
     suspend fun fetchNewQuiz(
         questionCount: Int,
-        category: Category?,
-        difficulty: Difficulty?,
+        category: Category,
+        difficulty: Difficulty,
     ): Quiz
 
     suspend fun saveQuizResults(quiz: CompletedQuiz): CompletedQuiz

@@ -6,12 +6,14 @@ import ru.trfx.dailyquiz.R
 import java.time.Instant
 
 enum class Difficulty(@StringRes val resId: Int) {
+    Any(R.string.difficulty_any),
     Easy(R.string.difficulty_easy),
     Medium(R.string.difficulty_medium),
     Hard(R.string.difficulty_hard),
 }
 
 enum class Category(@StringRes val resId: Int, val categoryId: Int) {
+    Any(R.string.category_any, -1),
     GeneralKnowledge(R.string.category_general_knowledge, 9),
     Books(R.string.category_books, 10),
     Film(R.string.category_film, 11),

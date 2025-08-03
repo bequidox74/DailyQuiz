@@ -69,4 +69,5 @@
     <string name="button_no">Нет</string>
     <string name="title_timeout">Время вышло!</string>
     <string name="text_timeout">Вы не успели завершить викторину. Попробуйте еще раз!</string>
+    <string name="difficulty_any">Любая сложность</string>
 </resources>

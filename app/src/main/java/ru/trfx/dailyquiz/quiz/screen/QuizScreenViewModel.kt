@@ -67,7 +67,7 @@ class QuizScreenViewModel(
     private val answers = mutableListOf<Int>()
 
 
-    fun loadQuiz(category: Category?, difficulty: Difficulty?) {
+    fun loadQuiz(category: Category, difficulty: Difficulty) {
         viewModelScope.launch {
             Timber.i("Loading quiz ($category, $difficulty)")
             try {
@@ -108,7 +108,7 @@ class QuizScreenViewModel(
         Timber.i("Quiz timeout")
 
         // Record random incorrect answers as per the specification
-        val incorrectCount = questionCount.value - questionNumber.value + 1
+        val incorrectCount = QUESTION_COUNT - answers.size
         Timber.i("Saving $incorrectCount incorrect answers")
         repeat(incorrectCount) {
             val choices = currentQuestion.options.indices.toMutableList()

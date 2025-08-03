@@ -57,8 +57,8 @@ class MockQuizRepository : QuizRepository {
 
     override suspend fun fetchNewQuiz(
         questionCount: Int,
-        category: Category?,
-        difficulty: Difficulty?,
+        category: Category,
+        difficulty: Difficulty,
     ): Quiz {
         Timber.i("Fetching mock quiz")
         delay(700)
