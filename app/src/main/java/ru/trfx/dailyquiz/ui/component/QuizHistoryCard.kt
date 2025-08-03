@@ -2,6 +2,7 @@ package ru.trfx.dailyquiz.ui.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -34,6 +36,7 @@ fun QuizHistoryCard(
     title: String,
     stars: Int,
     dateTime: LocalDateTime,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
     category: String? = null,
     difficulty: String? = null,
@@ -45,6 +48,8 @@ fun QuizHistoryCard(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
+            .clip(Shapes.Card)
+            .clickable(onClick = onClick)
             .background(color = Colors.White, shape = Shapes.Card)
             .padding(24.dp),
     ) {
@@ -125,5 +130,6 @@ private fun Preview() {
         dateTime = LocalDateTime.of(2025, 8, 1, 16, 30, 25),
         category = "English Language",
         difficulty = "Hard",
+        onClick = {},
     )
 }

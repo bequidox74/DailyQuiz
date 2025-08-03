@@ -53,7 +53,7 @@ fun QuizScreen(
         }
 
         QuizScreenUiState.Results -> {
-            navigator.navigate(QuizResultsScreenDestination)
+            navigator.navigate(QuizResultsScreenDestination())
         }
 
         QuizScreenUiState.Loading -> {

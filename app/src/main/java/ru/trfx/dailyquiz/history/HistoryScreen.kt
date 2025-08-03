@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
+import com.ramcosta.composedestinations.generated.destinations.QuizResultsScreenDestination
 import com.ramcosta.composedestinations.generated.destinations.QuizStartScreenDestination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import org.koin.compose.koinInject
@@ -93,11 +94,19 @@ fun HistoryScreen(navigator: DestinationsNavigator) {
                         title = stringResource(R.string.title_history_card, completedQuiz.id!!),
                         stars = stars,
                         dateTime = dateTime,
+
                         category = quiz.category.let {
                             if (it == null) null else stringResource(it.resId)
                         },
+
                         difficulty = quiz.difficulty.let {
                             if (it == null) null else stringResource(it.resId)
+                        },
+
+                        onClick = {
+                            navigator.navigate(
+                                QuizResultsScreenDestination(quizId = completedQuiz.id),
+                            )
                         },
                     )
                 }

@@ -22,7 +22,10 @@ import ru.trfx.dailyquiz.ui.component.ResultsCard
 
 @Destination<RootGraph>
 @Composable
-fun QuizResultsScreen(navigator: DestinationsNavigator) {
+fun QuizResultsScreen(
+    navigator: DestinationsNavigator,
+    quizId: Int? = null,
+) {
     val quizRepository = koinInject<QuizRepository>()
     val completedQuiz = quizRepository.lastQuiz!! // TODO: loading from history
     val quiz = completedQuiz.quiz
