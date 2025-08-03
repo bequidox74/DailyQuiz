@@ -1,6 +1,5 @@
 package ru.trfx.dailyquiz.quiz.repository
 
-import android.text.Html
 import androidx.core.text.HtmlCompat
 import kotlinx.serialization.json.Json
 import ru.trfx.dailyquiz.history.QuizHistoryDao
@@ -47,8 +46,11 @@ class DefaultQuizRepository(
             options.add(correctIndex, result.correct_answer)
 
             questions += Question(
-                title = Html.fromHtml(result.question, HtmlCompat.FROM_HTML_MODE_LEGACY).toString(),
-                options = options,
+                title = HtmlCompat.fromHtml(result.question, HtmlCompat.FROM_HTML_MODE_LEGACY)
+                    .toString(),
+                options = options.map {
+                    HtmlCompat.fromHtml(it, HtmlCompat.FROM_HTML_MODE_LEGACY).toString()
+                },
                 correctOptionIndex = correctIndex,
             )
         }
