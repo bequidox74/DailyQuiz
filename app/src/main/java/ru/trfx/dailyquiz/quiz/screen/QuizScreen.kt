@@ -24,8 +24,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.generated.destinations.QuizResultsScreenDestination
-import com.ramcosta.composedestinations.generated.destinations.QuizStartScreenDestination
-import com.ramcosta.composedestinations.generated.destinations.WelcomeScreenDestination
 import com.ramcosta.composedestinations.generated.navgraphs.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import org.koin.androidx.compose.koinViewModel
@@ -37,6 +35,7 @@ import ru.trfx.dailyquiz.ui.component.Button
 import ru.trfx.dailyquiz.ui.component.Card
 import ru.trfx.dailyquiz.ui.component.QuestionCard
 import ru.trfx.dailyquiz.ui.component.Throbber
+import ru.trfx.dailyquiz.ui.navigateToHome
 import ru.trfx.dailyquiz.ui.theme.Colors
 
 @Destination<RootGraph>(style = ScreenTransitions::class)
@@ -57,9 +56,7 @@ fun QuizScreen(
     when (state) {
         QuizScreenUiState.Error -> {
             Toast.makeText(LocalContext.current, R.string.toast_error, Toast.LENGTH_SHORT).show()
-            navigator.navigate(WelcomeScreenDestination) {
-                popUpTo(RootNavGraph.startRoute)
-            }
+            navigator.navigateToHome()
         }
 
         QuizScreenUiState.Results -> {
@@ -106,11 +103,7 @@ fun QuizScreen(
                         Spacer(Modifier.height(48.dp))
                         Button(
                             text = stringResource(R.string.button_restart).uppercase(),
-                            onClick = {
-                                navigator.navigate(QuizStartScreenDestination) {
-                                    popUpTo(RootNavGraph.startRoute)
-                                }
-                            },
+                            onClick = { navigator.navigateToHome() },
                         )
                     }
                 }
@@ -119,11 +112,7 @@ fun QuizScreen(
             TemplateQuizScreen(
                 title = null,
                 showBackButton = true,
-                onBackButtonClick = {
-                    navigator.navigate(WelcomeScreenDestination) {
-                        popUpTo(RootNavGraph.startRoute)
-                    }
-                }
+                onBackButtonClick = { navigator.navigateToHome() }
             ) {
                 LazyColumn {
                     item {

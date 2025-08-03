@@ -17,8 +17,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
-import com.ramcosta.composedestinations.generated.destinations.WelcomeScreenDestination
-import com.ramcosta.composedestinations.generated.navgraphs.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import org.koin.compose.koinInject
 import ru.trfx.dailyquiz.R
@@ -30,6 +28,7 @@ import ru.trfx.dailyquiz.ui.component.Button
 import ru.trfx.dailyquiz.ui.component.HistoryAnswerCard
 import ru.trfx.dailyquiz.ui.component.RadioButtonState
 import ru.trfx.dailyquiz.ui.component.ResultsCard
+import ru.trfx.dailyquiz.ui.navigateToHome
 import ru.trfx.dailyquiz.ui.theme.Colors
 
 @Destination<RootGraph>(style = ScreenTransitions::class)
@@ -92,13 +91,7 @@ fun QuizResultsScreen(
                 Spacer(Modifier.height(24.dp))
                 ResultsCard(
                     stars = stars,
-                    onRestart = {
-                        navigator.navigate(WelcomeScreenDestination) {
-                            popUpTo(RootNavGraph.startRoute) {
-                                inclusive = true
-                            }
-                        }
-                    },
+                    onRestart = { navigator.navigateToHome() },
                     showButton = quizId == null,
                 )
             }
@@ -138,13 +131,7 @@ fun QuizResultsScreen(
                     Spacer(Modifier.height(24.dp))
                     Button(
                         text = stringResource(R.string.button_restart).uppercase(),
-                        onClick = {
-                            navigator.navigate(WelcomeScreenDestination) {
-                                popUpTo(RootNavGraph.startRoute) {
-                                    inclusive = true
-                                }
-                            }
-                        },
+                        onClick = { navigator.navigateToHome() },
                         invertColors = true,
                     )
                 }
