@@ -1,5 +1,8 @@
 Задание по Android-разработке для летней школы Surf (Surf Summer School 2025).
 
+[YouTube](https://www.youtube.com/watch?v=jZ_2T-PYPik) - [APK](https://github.com/AlexanderLaptev/DailyQuiz/releases/tag/release)
+(YouTube загружает видео как short -_-)
+
 # Общая информация
 - Android 9+
 - Все дополнительные задания
