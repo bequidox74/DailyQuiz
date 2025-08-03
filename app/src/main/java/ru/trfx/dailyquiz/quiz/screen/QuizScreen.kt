@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -45,8 +45,9 @@ fun QuizScreen(
     navigator: DestinationsNavigator,
     viewModel: QuizScreenViewModel = koinViewModel(),
 ) {
-    LaunchedEffect(Unit) {
+    DisposableEffect(Unit) {
         viewModel.loadQuiz(category, difficulty)
+        onDispose { viewModel.abortQuiz() }
     }
 
     val state by viewModel.state.collectAsStateWithLifecycle()

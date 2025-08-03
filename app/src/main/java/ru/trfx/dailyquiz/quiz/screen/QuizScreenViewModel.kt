@@ -28,7 +28,7 @@ class QuizScreenViewModel(
     private val quizRepository: QuizRepository,
 ) : ViewModel() {
     companion object {
-        const val QUIZ_DURATION = 10f
+        const val QUIZ_DURATION = 2f
 
         private const val TIMER_INTERVAL = 50L
         private const val REVEAL_DURATION = 900L
@@ -71,12 +71,10 @@ class QuizScreenViewModel(
         viewModelScope.launch {
             Timber.i("Loading quiz ($category, $difficulty)")
             try {
-                timeoutJob?.cancel()
-
                 // Prepare quiz
+                abortQuiz()
                 val quiz = quizRepository.fetchNewQuiz(5, category, difficulty)
                 currentQuiz = quiz
-                answers.clear()
 
                 // Start timer
                 startTime = System.currentTimeMillis()
@@ -90,15 +88,12 @@ class QuizScreenViewModel(
                 }
 
                 // Update state
-                _state.value = QuizScreenUiState.Loaded
-                selectedOptionIndex = -1
                 _buttonEnabled.value = true
                 _optionsEnabled.value = true
-                _elapsedSeconds.value = 0f
-                _questionNumber.value = 1
                 _answerOptions.value = quiz.questions[0].options.map {
                     AnswerOptionState(it, RadioButtonState.Off)
                 }
+                _state.value = QuizScreenUiState.Loaded
             } catch (e: Exception) {
                 _state.value = QuizScreenUiState.Error
             }
@@ -197,5 +192,16 @@ class QuizScreenViewModel(
                 } else RadioButtonState.Off
             )
         }
+    }
+
+    fun abortQuiz() {
+        Timber.i("Aborting quiz")
+        timeoutJob?.cancel()
+        currentQuiz = null
+        answers.clear()
+        selectedOptionIndex = -1
+        _elapsedSeconds.value = 0f
+        _questionNumber.value = 1
+        _state.value = QuizScreenUiState.Loading
     }
 }
