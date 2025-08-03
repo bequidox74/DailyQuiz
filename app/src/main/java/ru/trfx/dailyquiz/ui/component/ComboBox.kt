@@ -5,6 +5,8 @@ import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -126,7 +128,11 @@ fun ComboBox(
             }
         }
 
-        AnimatedVisibility(hasSelection) {
+        AnimatedVisibility(
+            visible = hasSelection,
+            enter = fadeIn(),
+            exit = fadeOut(),
+        ) {
             Text(
                 text = title,
                 color = Colors.Purple,
@@ -134,7 +140,7 @@ fun ComboBox(
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .padding(start = 12.dp)
-                    .offset(y = (-8).dp)
+                    .offset(y = (-2).dp)
             )
         }
     }
