@@ -32,6 +32,7 @@ import ru.trfx.dailyquiz.R
 import ru.trfx.dailyquiz.quiz.CompletedQuiz
 import ru.trfx.dailyquiz.quiz.repository.QuizRepository
 import ru.trfx.dailyquiz.quiz.screen.TemplateQuizScreen
+import ru.trfx.dailyquiz.ui.ScreenTransitions
 import ru.trfx.dailyquiz.ui.component.Button
 import ru.trfx.dailyquiz.ui.component.Card
 import ru.trfx.dailyquiz.ui.component.QuizHistoryCard
@@ -42,7 +43,7 @@ import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 
-@Destination<RootGraph>
+@Destination<RootGraph>(style = ScreenTransitions::class)
 @Composable
 fun HistoryScreen(navigator: DestinationsNavigator) {
     val scope = rememberCoroutineScope()

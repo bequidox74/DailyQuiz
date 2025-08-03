@@ -31,13 +31,14 @@ import org.koin.androidx.compose.koinViewModel
 import ru.trfx.dailyquiz.R
 import ru.trfx.dailyquiz.quiz.Category
 import ru.trfx.dailyquiz.quiz.Difficulty
+import ru.trfx.dailyquiz.ui.ScreenTransitions
 import ru.trfx.dailyquiz.ui.component.Button
 import ru.trfx.dailyquiz.ui.component.Card
 import ru.trfx.dailyquiz.ui.component.QuestionCard
 import ru.trfx.dailyquiz.ui.component.Throbber
 import ru.trfx.dailyquiz.ui.theme.Colors
 
-@Destination<RootGraph>
+@Destination<RootGraph>(style = ScreenTransitions::class)
 @Composable
 fun QuizScreen(
     category: Category,

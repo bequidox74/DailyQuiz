@@ -23,12 +23,13 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import ru.trfx.dailyquiz.R
 import ru.trfx.dailyquiz.quiz.Category
 import ru.trfx.dailyquiz.quiz.Difficulty
+import ru.trfx.dailyquiz.ui.ScreenTransitions
 import ru.trfx.dailyquiz.ui.component.Button
 import ru.trfx.dailyquiz.ui.component.Card
 import ru.trfx.dailyquiz.ui.component.ComboBox
 import ru.trfx.dailyquiz.ui.theme.Colors
 
-@Destination<RootGraph>
+@Destination<RootGraph>(style = ScreenTransitions::class)
 @Composable
 fun QuizStartScreen(navigator: DestinationsNavigator) {
     var selectedCategory by remember { mutableIntStateOf(-1) }

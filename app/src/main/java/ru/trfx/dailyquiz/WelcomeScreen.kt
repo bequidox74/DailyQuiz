@@ -31,12 +31,13 @@ import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.generated.destinations.HistoryScreenDestination
 import com.ramcosta.composedestinations.generated.destinations.QuizStartScreenDestination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import ru.trfx.dailyquiz.ui.ScreenTransitions
 import ru.trfx.dailyquiz.ui.component.Button
 import ru.trfx.dailyquiz.ui.theme.Colors
 import ru.trfx.dailyquiz.ui.theme.DailyQuizTheme
 import ru.trfx.dailyquiz.ui.theme.Shapes
 
-@Destination<RootGraph>(start = true)
+@Destination<RootGraph>(start = true, style = ScreenTransitions::class)
 @Composable
 fun WelcomeScreen(
     navigator: DestinationsNavigator,
