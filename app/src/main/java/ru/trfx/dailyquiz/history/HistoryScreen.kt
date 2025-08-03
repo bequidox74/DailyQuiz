@@ -64,6 +64,12 @@ fun HistoryScreen() {
                     title = stringResource(R.string.title_history_card, completedQuiz.id!!),
                     stars = stars,
                     dateTime = dateTime,
+                    category = quiz.category.let {
+                        if (it == null) null else stringResource(it.resId)
+                    },
+                    difficulty = quiz.difficulty.let {
+                        if (it == null) null else stringResource(it.resId)
+                    },
                 )
             }
         }
