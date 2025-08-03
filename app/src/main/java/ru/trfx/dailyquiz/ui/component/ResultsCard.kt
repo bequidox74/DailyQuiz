@@ -24,6 +24,7 @@ const val MAX_STARS = 5
 fun ResultsCard(
     stars: Int,
     onRestart: () -> Unit,
+    showButton: Boolean,
     modifier: Modifier = Modifier,
 ) {
     require(stars in 0..5) { "Invalid number of stars" }
@@ -90,11 +91,13 @@ fun ResultsCard(
             textAlign = TextAlign.Center,
         )
 
-        Spacer(Modifier.height(52.dp))
-        Button(
-            text = stringResource(R.string.button_restart).uppercase(),
-            onClick = onRestart,
-        )
+        if (showButton) {
+            Spacer(Modifier.height(52.dp))
+            Button(
+                text = stringResource(R.string.button_restart).uppercase(),
+                onClick = onRestart,
+            )
+        }
     }
 }
 
@@ -104,5 +107,6 @@ private fun Preview() {
     ResultsCard(
         stars = 4,
         onRestart = {},
+        showButton = true,
     )
 }

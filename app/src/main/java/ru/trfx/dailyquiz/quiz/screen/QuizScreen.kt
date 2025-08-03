@@ -26,6 +26,7 @@ import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.generated.destinations.QuizResultsScreenDestination
 import com.ramcosta.composedestinations.generated.destinations.QuizStartScreenDestination
 import com.ramcosta.composedestinations.generated.destinations.WelcomeScreenDestination
+import com.ramcosta.composedestinations.generated.navgraphs.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import org.koin.androidx.compose.koinViewModel
 import ru.trfx.dailyquiz.R
@@ -56,11 +57,15 @@ fun QuizScreen(
     when (state) {
         QuizScreenUiState.Error -> {
             Toast.makeText(LocalContext.current, R.string.toast_error, Toast.LENGTH_SHORT).show()
-            navigator.navigate(WelcomeScreenDestination)
+            navigator.navigate(WelcomeScreenDestination) {
+                popUpTo(RootNavGraph.startRoute)
+            }
         }
 
         QuizScreenUiState.Results -> {
-            navigator.navigate(QuizResultsScreenDestination())
+            navigator.navigate(QuizResultsScreenDestination()) {
+                popUpTo(RootNavGraph.startRoute)
+            }
         }
 
         QuizScreenUiState.Loading -> {
@@ -101,7 +106,11 @@ fun QuizScreen(
                         Spacer(Modifier.height(48.dp))
                         Button(
                             text = stringResource(R.string.button_restart).uppercase(),
-                            onClick = { navigator.navigate(QuizStartScreenDestination) },
+                            onClick = {
+                                navigator.navigate(QuizStartScreenDestination) {
+                                    popUpTo(RootNavGraph.startRoute)
+                                }
+                            },
                         )
                     }
                 }
@@ -110,7 +119,11 @@ fun QuizScreen(
             TemplateQuizScreen(
                 title = null,
                 showBackButton = true,
-                onBackButtonClick = { navigator.navigate(WelcomeScreenDestination) }
+                onBackButtonClick = {
+                    navigator.navigate(WelcomeScreenDestination) {
+                        popUpTo(RootNavGraph.startRoute)
+                    }
+                }
             ) {
                 LazyColumn {
                     item {

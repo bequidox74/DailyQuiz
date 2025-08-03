@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.generated.destinations.WelcomeScreenDestination
+import com.ramcosta.composedestinations.generated.navgraphs.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import org.koin.compose.koinInject
 import ru.trfx.dailyquiz.R
@@ -91,7 +92,12 @@ fun QuizResultsScreen(
                 Spacer(Modifier.height(24.dp))
                 ResultsCard(
                     stars = stars,
-                    onRestart = { navigator.navigate(WelcomeScreenDestination) },
+                    onRestart = {
+                        navigator.navigate(WelcomeScreenDestination) {
+                            popUpTo(RootNavGraph.startRoute)
+                        }
+                    },
+                    showButton = quizId == null,
                 )
             }
 
@@ -126,12 +132,18 @@ fun QuizResultsScreen(
             }
 
             item {
-                Spacer(Modifier.height(24.dp))
-                Button(
-                    text = stringResource(R.string.button_restart).uppercase(),
-                    onClick = { navigator.navigate(WelcomeScreenDestination) },
-                    invertColors = true,
-                )
+                if (quizId == null) {
+                    Spacer(Modifier.height(24.dp))
+                    Button(
+                        text = stringResource(R.string.button_restart).uppercase(),
+                        onClick = {
+                            navigator.navigate(WelcomeScreenDestination) {
+                                popUpTo(RootNavGraph.startRoute)
+                            }
+                        },
+                        invertColors = true,
+                    )
+                }
                 Spacer(Modifier.height(24.dp))
             }
         }
