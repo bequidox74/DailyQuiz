@@ -28,8 +28,7 @@ class QuizScreenViewModel(
     private val quizRepository: QuizRepository,
 ) : ViewModel() {
     companion object {
-        const val QUIZ_DURATION = 20f
-
+        const val QUIZ_DURATION = 5f * 60f
         private const val TIMER_INTERVAL = 50L
         private const val REVEAL_DURATION = 900L
         private const val QUESTION_COUNT = 5
