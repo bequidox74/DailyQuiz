@@ -118,9 +118,6 @@ class QuizScreenViewModel(
 
         viewModelScope.launch {
             delay(REVEAL_DURATION)
-            _optionsEnabled.value = true
-            _buttonEnabled.value = true
-
             if (questionNumber.value == currentQuiz!!.questions.size) {
                 endQuiz()
             } else nextQuestion()
@@ -164,6 +161,8 @@ class QuizScreenViewModel(
 
     private fun nextQuestion() {
         Timber.i("Next question")
+        _optionsEnabled.value = true
+        _buttonEnabled.value = true
         _buttonEnabled.value = false
         _questionNumber.value++
         _answerOptions.value = currentQuestion.options.map {
