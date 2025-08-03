@@ -55,6 +55,7 @@ data class Question(
 data class CompletedQuiz(
     val quiz: Quiz,
     val answers: List<Int>,
+    val id: Int? = null,
 ) {
     init {
         require(quiz.questions.size == answers.size)

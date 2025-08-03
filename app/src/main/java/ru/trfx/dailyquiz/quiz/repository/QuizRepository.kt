@@ -14,7 +14,8 @@ interface QuizRepository {
         difficulty: Difficulty?,
     ): Quiz
 
-    suspend fun saveQuizResults(quiz: CompletedQuiz)
-
+    suspend fun saveQuizResults(quiz: CompletedQuiz): CompletedQuiz
     suspend fun getQuizHistory(): List<CompletedQuiz>
+    suspend fun getSavedQuiz(id: Int): CompletedQuiz?
+    suspend fun deleteSavedQuiz(id: Int)
 }

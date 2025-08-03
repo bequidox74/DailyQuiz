@@ -13,6 +13,7 @@ class MockQuizRepository : QuizRepository {
     override val lastQuiz get() = _lastQuiz
 
     private val history = mutableListOf<CompletedQuiz>()
+    private var lastId = 0
 
     init {
         history += CompletedQuiz(
@@ -38,6 +39,7 @@ class MockQuizRepository : QuizRepository {
                 difficulty = Difficulty.Easy,
             ),
             answers = listOf(0, 2, 1),
+            id = lastId++,
         )
     }
 
@@ -81,16 +83,25 @@ class MockQuizRepository : QuizRepository {
         )
     }
 
-    override suspend fun saveQuizResults(quiz: CompletedQuiz) {
+    override suspend fun saveQuizResults(quiz: CompletedQuiz): CompletedQuiz {
         Timber.i("Saving quiz results")
         delay(300)
         _lastQuiz = quiz
         history += quiz
+        return quiz.copy(id = lastId++)
     }
 
     override suspend fun getQuizHistory(): List<CompletedQuiz> {
         Timber.i("Retrieving quiz history")
         delay(500)
         return history
+    }
+
+    override suspend fun getSavedQuiz(id: Int): CompletedQuiz? {
+        return history.find { it.id == id }
+    }
+
+    override suspend fun deleteSavedQuiz(id: Int) {
+        history.removeIf { it.id == id }
     }
 }
