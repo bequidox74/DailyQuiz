@@ -88,7 +88,7 @@ private fun WelcomeScreenContent(
         modifier = Modifier
             .fillMaxHeight()
             .wrapContentSize()
-            .padding(horizontal = 24.dp)
+            .padding(horizontal = 12.dp)
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
     ) {
