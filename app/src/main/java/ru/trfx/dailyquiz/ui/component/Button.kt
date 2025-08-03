@@ -34,7 +34,7 @@ fun Button(
         if (invertColors) Colors.White else Colors.Blue
     }
     val textColor = if (!enabled) Colors.White else {
-        if (invertColors) Colors.Blue else Colors.White
+        if (invertColors) Colors.Purple else Colors.White
     }
 
     Box(

@@ -13,6 +13,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import ru.trfx.dailyquiz.R
 import ru.trfx.dailyquiz.quiz.QuizHandler
 import ru.trfx.dailyquiz.ui.component.AnswerOptionState
+import ru.trfx.dailyquiz.ui.component.Button
 import ru.trfx.dailyquiz.ui.component.HistoryAnswerCard
 import ru.trfx.dailyquiz.ui.component.RadioButtonState
 import ru.trfx.dailyquiz.ui.component.ResultsCard
@@ -68,5 +69,14 @@ fun QuizResultsScreen(navigator: DestinationsNavigator) {
                 options = options,
             )
         }
+
+        Spacer(Modifier.height(24.dp))
+        Button(
+            text = stringResource(R.string.button_restart).uppercase(),
+            onClick = { navigator.navigate(WelcomeScreenDestination) },
+            invertColors = true,
+        )
+
+        Spacer(Modifier.height(24.dp))
     }
 }

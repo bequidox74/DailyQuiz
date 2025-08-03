@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeightIn
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
@@ -101,7 +102,9 @@ fun ComboBox(
 
             AnimatedVisibility(expanded) {
                 LazyColumn(
-                    modifier = Modifier.animateContentSize(),
+                    modifier = Modifier
+                        .animateContentSize()
+                        .requiredHeightIn(max = 192.dp),
                 ) {
                     items(count = options.size) {
                         val option = options[it]

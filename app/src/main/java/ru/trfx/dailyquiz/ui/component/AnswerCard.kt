@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -46,10 +45,10 @@ fun AnswerCardOptions(
 
         Spacer(Modifier.height(24.dp))
 
-        LazyColumn(
+        Column(
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            items(count = options.size) { index ->
+            for (index in options.indices) {
                 val state = options[index]
                 AnswerOption(
                     state = state,
