@@ -48,7 +48,7 @@ fun AnswerCardOptions(
         Spacer(Modifier.height(24.dp))
 
         Column(
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             for (index in options.indices) {
                 val state = options[index]
