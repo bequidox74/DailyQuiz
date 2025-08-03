@@ -51,7 +51,7 @@ class QuizScreenViewModel(
 
     val currentQuestion get() = currentQuiz!!.questions[_questionNumber.value - 1]
 
-    private val _questionCount = MutableStateFlow(1)
+    private val _questionCount = MutableStateFlow(QUESTION_COUNT)
     val questionCount = _questionCount.asStateFlow()
 
     private val _buttonEnabled = MutableStateFlow(false)
