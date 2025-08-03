@@ -16,7 +16,7 @@ class MockQuizRepository : QuizRepository {
     private var lastId = 1
 
     init {
-        repeat(5) {
+        repeat(0) {
             history += CompletedQuiz(
                 quiz = Quiz(
                     questions = listOf(
@@ -90,8 +90,8 @@ class MockQuizRepository : QuizRepository {
                     correctOptionIndex = 0,
                 ),
             ),
-            category = null,
-            difficulty = Difficulty.Medium,
+            category = category,
+            difficulty = difficulty,
         )
     }
 
@@ -100,8 +100,9 @@ class MockQuizRepository : QuizRepository {
         require(quiz.id == null)
         delay(300)
         _lastQuiz = quiz
-        history += quiz
-        return quiz.copy(id = lastId++)
+        val saved = quiz.copy(id = lastId++)
+        history += saved
+        return saved
     }
 
     override suspend fun getQuizHistory(): List<CompletedQuiz> {

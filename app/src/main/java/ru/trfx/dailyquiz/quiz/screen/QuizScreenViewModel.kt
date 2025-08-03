@@ -28,7 +28,7 @@ class QuizScreenViewModel(
     private val quizRepository: QuizRepository,
 ) : ViewModel() {
     companion object {
-        const val QUIZ_DURATION = 2f
+        const val QUIZ_DURATION = 10f
 
         private const val TIMER_INTERVAL = 50L
         private const val REVEAL_DURATION = 900L
@@ -39,7 +39,7 @@ class QuizScreenViewModel(
     val state = _state.asStateFlow()
 
     private var startTime: Long = 0L
-    private var timerJob: Job? = null
+    private var timeoutJob: Job? = null
 
     private val _elapsedSeconds = MutableStateFlow(0f)
     val elapsedSeconds = _elapsedSeconds.asStateFlow()
@@ -71,6 +71,8 @@ class QuizScreenViewModel(
         viewModelScope.launch {
             Timber.i("Loading quiz ($category, $difficulty)")
             try {
+                timeoutJob?.cancel()
+
                 // Prepare quiz
                 val quiz = quizRepository.fetchNewQuiz(5, category, difficulty)
                 currentQuiz = quiz
@@ -78,8 +80,7 @@ class QuizScreenViewModel(
 
                 // Start timer
                 startTime = System.currentTimeMillis()
-                timerJob?.cancel()
-                timerJob = launch {
+                timeoutJob = viewModelScope.launch {
                     Timber.i("Starting quiz timer")
                     while (_elapsedSeconds.value <= QUIZ_DURATION) {
                         _elapsedSeconds.value = (System.currentTimeMillis() - startTime) / 1000f
@@ -166,6 +167,7 @@ class QuizScreenViewModel(
 
     private fun endQuiz() {
         Timber.i("Ending quiz")
+        timeoutJob?.cancel()
         viewModelScope.launch {
             quizRepository.saveQuizResults(CompletedQuiz(currentQuiz!!, answers.toList()))
             answers.clear()
