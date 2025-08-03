@@ -94,7 +94,9 @@ fun QuizResultsScreen(
                     stars = stars,
                     onRestart = {
                         navigator.navigate(WelcomeScreenDestination) {
-                            popUpTo(RootNavGraph.startRoute)
+                            popUpTo(RootNavGraph.startRoute) {
+                                inclusive = true
+                            }
                         }
                     },
                     showButton = quizId == null,
