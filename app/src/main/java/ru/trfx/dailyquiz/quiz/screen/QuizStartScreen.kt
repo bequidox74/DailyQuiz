@@ -39,6 +39,7 @@ fun QuizStartScreen(navigator: DestinationsNavigator) {
         showBackButton = false,
         onBackButtonClick = { navigator.navigateUp() },
     ) {
+        Spacer(Modifier.height(48.dp))
         LazyColumn {
             item {
                 Card {

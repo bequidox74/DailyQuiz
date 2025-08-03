@@ -106,6 +106,7 @@ fun HistoryScreen(navigator: DestinationsNavigator) {
         onBackButtonClick = {},
     ) {
         if (history == null) {
+            Spacer(Modifier.height(32.dp))
             Throbber()
             return
         }
