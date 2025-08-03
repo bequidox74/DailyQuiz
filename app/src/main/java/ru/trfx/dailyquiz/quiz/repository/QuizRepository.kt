@@ -6,11 +6,15 @@ import ru.trfx.dailyquiz.quiz.Difficulty
 import ru.trfx.dailyquiz.quiz.Quiz
 
 interface QuizRepository {
-    var lastQuiz: CompletedQuiz?
+    val lastQuiz: CompletedQuiz?
 
-    suspend fun getQuiz(
+    suspend fun fetchNewQuiz(
         questionCount: Int,
         category: Category?,
         difficulty: Difficulty?,
     ): Quiz
+
+    suspend fun saveQuizResults(quiz: CompletedQuiz)
+
+    suspend fun getQuizHistory(): List<CompletedQuiz>
 }

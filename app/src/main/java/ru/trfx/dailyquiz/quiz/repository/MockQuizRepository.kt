@@ -9,16 +9,18 @@ import ru.trfx.dailyquiz.quiz.Quiz
 import timber.log.Timber
 
 class MockQuizRepository : QuizRepository {
-    override var lastQuiz: CompletedQuiz? = null
+    private var _lastQuiz: CompletedQuiz? = null
+    override val lastQuiz get() = _lastQuiz
 
-    override suspend fun getQuiz(
+    private val history = mutableListOf<CompletedQuiz>()
+
+    override suspend fun fetchNewQuiz(
         questionCount: Int,
         category: Category?,
         difficulty: Difficulty?,
     ): Quiz {
-        Timber.d("Mock quiz requested")
+        Timber.d("Fetching mock quiz")
         delay(700)
-        Timber.d("Returning mock quiz")
         return Quiz(
             questions = listOf(
                 Question(
@@ -50,5 +52,18 @@ class MockQuizRepository : QuizRepository {
             category = null,
             difficulty = Difficulty.Medium,
         )
+    }
+
+    override suspend fun saveQuizResults(quiz: CompletedQuiz) {
+        Timber.i("Saving quiz results")
+        delay(300)
+        _lastQuiz = quiz
+        history += quiz
+    }
+
+    override suspend fun getQuizHistory(): List<CompletedQuiz> {
+        Timber.i("Retrieving quiz history")
+        delay(500)
+        return history
     }
 }

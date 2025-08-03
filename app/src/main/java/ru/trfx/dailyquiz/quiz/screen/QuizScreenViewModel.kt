@@ -76,7 +76,7 @@ class QuizScreenViewModel(
             Timber.i("Loading quiz ($category, $difficulty)")
             try {
                 // Prepare quiz
-                val quiz = quizRepository.getQuiz(5, category, difficulty)
+                val quiz = quizRepository.fetchNewQuiz(5, category, difficulty)
                 currentQuiz = quiz
                 answers.clear()
 
@@ -155,9 +155,11 @@ class QuizScreenViewModel(
 
     private fun endQuiz() {
         Timber.i("Ending quiz")
-        quizRepository.lastQuiz = CompletedQuiz(currentQuiz!!, answers.toList())
-        answers.clear()
-        _state.value = QuizScreenUiState.Results
+        viewModelScope.launch {
+            quizRepository.saveQuizResults(CompletedQuiz(currentQuiz!!, answers.toList()))
+            answers.clear()
+            _state.value = QuizScreenUiState.Results
+        }
     }
 
     private fun nextQuestion() {
