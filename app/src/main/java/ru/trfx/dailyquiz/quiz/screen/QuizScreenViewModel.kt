@@ -28,7 +28,7 @@ class QuizScreenViewModel(
     private val quizRepository: QuizRepository,
 ) : ViewModel() {
     companion object {
-        const val QUIZ_DURATION = 20f
+        const val QUIZ_DURATION = 2f
 
         private const val TIMER_INTERVAL = 50L
         private const val REVEAL_DURATION = 900L
@@ -105,10 +105,13 @@ class QuizScreenViewModel(
 
         // Record random incorrect answers as per the specification
         val incorrectCount = QUESTION_COUNT - answers.size
+        val realAnswerCount = answers.size
+        val quiz = currentQuiz!!
         Timber.i("Saving $incorrectCount incorrect answers")
         repeat(incorrectCount) {
-            val choices = currentQuestion.options.indices.toMutableList()
-            choices -= currentQuestion.correctOptionIndex
+            val question = quiz.questions[realAnswerCount + it]
+            val choices = question.options.indices.toMutableList()
+            choices -= question.correctOptionIndex
             answers += choices.random()
         }
         Timber.i("Total answers: ${answers.size}")
