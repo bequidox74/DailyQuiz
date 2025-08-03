@@ -106,7 +106,7 @@ fun ComboBox(
                 LazyColumn(
                     modifier = Modifier
                         .animateContentSize()
-                        .requiredHeightIn(max = 192.dp),
+                        .requiredHeightIn(max = 160.dp),
                 ) {
                     items(count = options.size) {
                         val option = options[it]
