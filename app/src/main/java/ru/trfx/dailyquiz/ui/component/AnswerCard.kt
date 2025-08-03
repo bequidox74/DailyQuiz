@@ -63,8 +63,8 @@ fun AnswerCardOptions(
 
 @Composable
 fun HistoryAnswerCard(
-    number: Int,
-    maxNumber: Int,
+    questionNumber: Int,
+    questionCount: Int,
     title: String,
     state: RadioButtonState,
     options: List<AnswerOptionState>,
@@ -77,7 +77,7 @@ fun HistoryAnswerCard(
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
-                text = stringResource(R.string.question_number, number, maxNumber),
+                text = stringResource(R.string.question_number, questionNumber, questionCount),
                 color = Colors.Gray,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
@@ -165,8 +165,8 @@ private fun PreviewOptions() {
 @Composable
 private fun PreviewHistory() {
     HistoryAnswerCard(
-        number = 3,
-        maxNumber = 5,
+        questionNumber = 3,
+        questionCount = 5,
         title = previewQuestion,
         state = RadioButtonState.Correct,
         options = previewOptions,

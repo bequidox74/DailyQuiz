@@ -30,7 +30,7 @@ class QuizScreenViewModel(
     companion object {
         const val QUIZ_DURATION = 15f
         private const val TIMER_INTERVAL = 50L
-        private const val REVEAL_DURATION = 1500L
+        private const val REVEAL_DURATION = 900L
     }
 
     private val _state = MutableStateFlow<QuizScreenUiState>(QuizScreenUiState.Loading)

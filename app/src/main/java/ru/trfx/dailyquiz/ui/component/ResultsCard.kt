@@ -1,16 +1,12 @@
 package ru.trfx.dailyquiz.ui.component
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -21,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.trfx.dailyquiz.R
 import ru.trfx.dailyquiz.ui.theme.Colors
-import ru.trfx.dailyquiz.ui.theme.Shapes
 
 const val MAX_STARS = 5
 
@@ -32,12 +27,7 @@ fun ResultsCard(
     modifier: Modifier = Modifier,
 ) {
     require(stars in 0..5) { "Invalid number of stars" }
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
-            .background(color = Colors.White, shape = Shapes.Card)
-            .padding(24.dp),
-    ) {
+    Card(modifier = modifier) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
