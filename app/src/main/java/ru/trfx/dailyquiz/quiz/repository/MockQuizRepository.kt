@@ -16,41 +16,43 @@ class MockQuizRepository : QuizRepository {
     private var lastId = 1
 
     init {
-        history += CompletedQuiz(
-            quiz = Quiz(
-                questions = listOf(
-                    Question(
-                        title = "Lorem ipsum A?",
-                        options = listOf("A", "B", "C", "D"),
-                        correctOptionIndex = 0,
+        repeat(5) {
+            history += CompletedQuiz(
+                quiz = Quiz(
+                    questions = listOf(
+                        Question(
+                            title = "Lorem ipsum A?",
+                            options = listOf("A", "B", "C", "D"),
+                            correctOptionIndex = 0,
+                        ),
+                        Question(
+                            title = "Lorem ipsum B?",
+                            options = listOf("A", "B", "C", "D"),
+                            correctOptionIndex = 0,
+                        ),
+                        Question(
+                            title = "Lorem ipsum C?",
+                            options = listOf("A", "B", "C", "D"),
+                            correctOptionIndex = 0,
+                        ),
+                        Question(
+                            title = "Lorem ipsum D?",
+                            options = listOf("A", "B", "C", "D"),
+                            correctOptionIndex = 0,
+                        ),
+                        Question(
+                            title = "Lorem ipsum E?",
+                            options = listOf("A", "B", "C", "D"),
+                            correctOptionIndex = 0,
+                        ),
                     ),
-                    Question(
-                        title = "Lorem ipsum B?",
-                        options = listOf("A", "B", "C", "D"),
-                        correctOptionIndex = 0,
-                    ),
-                    Question(
-                        title = "Lorem ipsum C?",
-                        options = listOf("A", "B", "C", "D"),
-                        correctOptionIndex = 0,
-                    ),
-                    Question(
-                        title = "Lorem ipsum D?",
-                        options = listOf("A", "B", "C", "D"),
-                        correctOptionIndex = 0,
-                    ),
-                    Question(
-                        title = "Lorem ipsum E?",
-                        options = listOf("A", "B", "C", "D"),
-                        correctOptionIndex = 0,
-                    ),
+                    category = Category.Film,
+                    difficulty = Difficulty.Easy,
                 ),
-                category = Category.Film,
-                difficulty = Difficulty.Easy,
-            ),
-            answers = listOf(0, 2, 1, 3, 0),
-            id = lastId++,
-        )
+                answers = listOf(0, 2, 1, 3, 0),
+                id = lastId++,
+            )
+        }
     }
 
     override suspend fun fetchNewQuiz(
@@ -103,16 +105,22 @@ class MockQuizRepository : QuizRepository {
     }
 
     override suspend fun getQuizHistory(): List<CompletedQuiz> {
-        Timber.i("Retrieving quiz history")
+        Timber.i("Retrieving quiz history (${history.size} entries)")
         delay(500)
-        return history
+        return history.toList()
     }
 
     override suspend fun getSavedQuiz(id: Int): CompletedQuiz? {
-        return history.find { it.id == id }
+        Timber.i("Getting quiz id=$id")
+        val result = history.find { it.id == id }
+        Timber.i("found: ${result != null}")
+        return result
     }
 
     override suspend fun deleteSavedQuiz(id: Int) {
-        history.removeIf { it.id == id }
+        Timber.i("Deleting quiz id=$id")
+        require(id != 0)
+        val result = history.removeIf { it.id == id }
+        Timber.i("deleted: $result")
     }
 }

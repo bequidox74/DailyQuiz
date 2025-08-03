@@ -64,4 +64,7 @@
     <string name="text_no_going_back">Вернуться к предыдущим вопросам нельзя</string>
     <string name="title_history_card">Викторина %1$s</string>
     <string name="text_no_quizzes">Вы ещё не проходили ни одной викторины</string>
+    <string name="dialog_delete_quiz">Вы действительно хотите удалить выбранную запись?</string>
+    <string name="button_yes">Да</string>
+    <string name="button_no">Нет</string>
 </resources>
