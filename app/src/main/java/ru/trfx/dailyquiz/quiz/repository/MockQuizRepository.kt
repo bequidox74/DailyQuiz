@@ -60,7 +60,7 @@ class MockQuizRepository : QuizRepository {
         category: Category?,
         difficulty: Difficulty?,
     ): Quiz {
-        Timber.d("Fetching mock quiz")
+        Timber.i("Fetching mock quiz")
         delay(700)
         return Quiz(
             questions = listOf(

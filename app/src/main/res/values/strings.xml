@@ -67,4 +67,6 @@
     <string name="dialog_delete_quiz">Вы действительно хотите удалить выбранную запись?</string>
     <string name="button_yes">Да</string>
     <string name="button_no">Нет</string>
+    <string name="title_timeout">Время вышло!</string>
+    <string name="text_timeout">Вы не успели завершить викторину. Попробуйте еще раз!</string>
 </resources>

@@ -4,9 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.trfx.dailyquiz.quiz.Category
@@ -22,6 +20,7 @@ sealed interface QuizScreenUiState {
     data object Loading : QuizScreenUiState
     data object Error : QuizScreenUiState
     data object Loaded : QuizScreenUiState
+    data object Timeout : QuizScreenUiState
     data object Results : QuizScreenUiState
 }
 
@@ -29,7 +28,7 @@ class QuizScreenViewModel(
     private val quizRepository: QuizRepository,
 ) : ViewModel() {
     companion object {
-        const val QUIZ_DURATION = 15f
+        const val QUIZ_DURATION = 2f
 
         private const val TIMER_INTERVAL = 50L
         private const val REVEAL_DURATION = 900L
@@ -63,9 +62,6 @@ class QuizScreenViewModel(
     private val _answerOptions = MutableStateFlow<List<AnswerOptionState>>(emptyList())
     val answerOptions = _answerOptions.asStateFlow()
 
-    private val _timeoutEventFlow = MutableSharedFlow<Unit>()
-    val timeoutEventFlow = _timeoutEventFlow.asSharedFlow()
-
     private var currentQuiz: Quiz? = null
     private var selectedOptionIndex = -1
     private val answers = mutableListOf<Int>()
@@ -89,9 +85,7 @@ class QuizScreenViewModel(
                         _elapsedSeconds.value = (System.currentTimeMillis() - startTime) / 1000f
                         delay(TIMER_INTERVAL)
                     }
-
-                    Timber.i("Quiz timeout")
-                    _timeoutEventFlow.tryEmit(Unit)
+                    timeout()
                 }
 
                 // Update state
@@ -107,6 +101,26 @@ class QuizScreenViewModel(
             } catch (e: Exception) {
                 _state.value = QuizScreenUiState.Error
             }
+        }
+    }
+
+    private fun timeout() {
+        Timber.i("Quiz timeout")
+
+        // Record random incorrect answers as per the specification
+        val incorrectCount = questionCount.value - questionNumber.value + 1
+        Timber.i("Saving $incorrectCount incorrect answers")
+        repeat(incorrectCount) {
+            val choices = currentQuestion.options.indices.toMutableList()
+            choices -= currentQuestion.correctOptionIndex
+            answers += choices.random()
+        }
+        Timber.i("Total answers: ${answers.size}")
+
+        viewModelScope.launch {
+            quizRepository.saveQuizResults(CompletedQuiz(currentQuiz!!, answers.toList()))
+            answers.clear()
+            _state.value = QuizScreenUiState.Timeout
         }
     }
 
