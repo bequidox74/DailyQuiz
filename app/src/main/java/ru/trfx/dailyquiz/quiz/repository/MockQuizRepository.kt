@@ -15,33 +15,33 @@ class MockQuizRepository : QuizRepository {
     private val history = mutableListOf<CompletedQuiz>()
     private var lastId = 1
 
-    init {
-        history += CompletedQuiz(
-            quiz = Quiz(
-                questions = listOf(
-                    Question(
-                        title = "Lorem ipsum X?",
-                        options = listOf("A", "B", "C", "D"),
-                        correctOptionIndex = 0,
-                    ),
-                    Question(
-                        title = "Lorem ipsum Y?",
-                        options = listOf("A", "B", "C", "D"),
-                        correctOptionIndex = 1,
-                    ),
-                    Question(
-                        title = "Lorem ipsum Z?",
-                        options = listOf("A", "B", "C", "D"),
-                        correctOptionIndex = 2,
-                    ),
-                ),
-                category = Category.Film,
-                difficulty = Difficulty.Easy,
-            ),
-            answers = listOf(0, 2, 1),
-            id = lastId++,
-        )
-    }
+//    init {
+//        history += CompletedQuiz(
+//            quiz = Quiz(
+//                questions = listOf(
+//                    Question(
+//                        title = "Lorem ipsum X?",
+//                        options = listOf("A", "B", "C", "D"),
+//                        correctOptionIndex = 0,
+//                    ),
+//                    Question(
+//                        title = "Lorem ipsum Y?",
+//                        options = listOf("A", "B", "C", "D"),
+//                        correctOptionIndex = 1,
+//                    ),
+//                    Question(
+//                        title = "Lorem ipsum Z?",
+//                        options = listOf("A", "B", "C", "D"),
+//                        correctOptionIndex = 2,
+//                    ),
+//                ),
+//                category = Category.Film,
+//                difficulty = Difficulty.Easy,
+//            ),
+//            answers = listOf(0, 2, 1),
+//            id = lastId++,
+//        )
+//    }
 
     override suspend fun fetchNewQuiz(
         questionCount: Int,

@@ -63,4 +63,5 @@
     <string name="title_results">Результаты</string>
     <string name="text_no_going_back">Вернуться к предыдущим вопросам нельзя</string>
     <string name="title_history_card">Викторина %1$s</string>
+    <string name="text_no_quizzes">Вы ещё не проходили ни одной викторины</string>
 </resources>
