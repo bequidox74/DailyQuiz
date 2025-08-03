@@ -27,7 +27,6 @@ import org.koin.androidx.compose.koinViewModel
 import ru.trfx.dailyquiz.R
 import ru.trfx.dailyquiz.quiz.Category
 import ru.trfx.dailyquiz.quiz.Difficulty
-import ru.trfx.dailyquiz.quiz.QuizHandler
 import ru.trfx.dailyquiz.ui.component.QuestionCard
 import ru.trfx.dailyquiz.ui.component.Throbber
 import ru.trfx.dailyquiz.ui.theme.Colors
@@ -69,7 +68,7 @@ fun QuizScreen(
             val answerOptions by viewModel.answerOptions.collectAsStateWithLifecycle()
             val buttonEnabled by viewModel.buttonEnabled.collectAsStateWithLifecycle()
             val optionsEnabled by viewModel.optionsEnabled.collectAsStateWithLifecycle()
-            val question = QuizHandler.getQuestion(questionNumber)
+            val questionCount by viewModel.questionCount.collectAsStateWithLifecycle()
 
             val realElapsedSeconds by viewModel.elapsedSeconds.collectAsStateWithLifecycle()
             val elapsedSeconds by animateFloatAsState(realElapsedSeconds)
@@ -83,13 +82,13 @@ fun QuizScreen(
                     elapsedSeconds = elapsedSeconds,
                     totalSeconds = viewModel.totalSeconds,
                     currentQuestionNumber = questionNumber,
-                    questionCount = QuizHandler.questionCount,
-                    title = question.title,
+                    questionCount = questionCount,
+                    title = viewModel.currentQuestion.title,
                     options = answerOptions,
                     onOptionClick = viewModel::onOptionSelected,
                     optionsEnabled = optionsEnabled,
                     buttonText = stringResource(
-                        if (questionNumber < QuizHandler.questionCount) {
+                        if (questionNumber < questionCount) {
                             R.string.button_next
                         } else R.string.button_end_quiz
                     ).uppercase(),

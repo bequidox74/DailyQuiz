@@ -50,3 +50,13 @@ data class Question(
     val options: List<String>,
     val correctOptionIndex: Int,
 )
+
+@Immutable
+data class CompletedQuiz(
+    val quiz: Quiz,
+    val answers: List<Int>,
+) {
+    init {
+        require(quiz.questions.size == answers.size)
+    }
+}

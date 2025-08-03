@@ -10,8 +10,9 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.generated.destinations.WelcomeScreenDestination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import org.koin.compose.koinInject
 import ru.trfx.dailyquiz.R
-import ru.trfx.dailyquiz.quiz.QuizHandler
+import ru.trfx.dailyquiz.quiz.repository.QuizRepository
 import ru.trfx.dailyquiz.ui.component.AnswerOptionState
 import ru.trfx.dailyquiz.ui.component.Button
 import ru.trfx.dailyquiz.ui.component.HistoryAnswerCard
@@ -21,8 +22,10 @@ import ru.trfx.dailyquiz.ui.component.ResultsCard
 @Destination<RootGraph>
 @Composable
 fun QuizResultsScreen(navigator: DestinationsNavigator) {
-    val quiz = QuizHandler.currentQuiz!!
-    val answers = QuizHandler.answers.toList()
+    val quizRepository = koinInject<QuizRepository>()
+    val completedQuiz = quizRepository.lastQuiz!! // TODO: loading from history
+    val quiz = completedQuiz.quiz
+    val answers = completedQuiz.answers
 
     var stars = 0
     for (i in quiz.questions.indices) {

@@ -2,12 +2,15 @@ package ru.trfx.dailyquiz.quiz.repository
 
 import kotlinx.coroutines.delay
 import ru.trfx.dailyquiz.quiz.Category
+import ru.trfx.dailyquiz.quiz.CompletedQuiz
 import ru.trfx.dailyquiz.quiz.Difficulty
 import ru.trfx.dailyquiz.quiz.Question
 import ru.trfx.dailyquiz.quiz.Quiz
 import timber.log.Timber
 
 class MockQuizRepository : QuizRepository {
+    override var lastQuiz: CompletedQuiz? = null
+
     override suspend fun getQuiz(
         questionCount: Int,
         category: Category?,
