@@ -43,8 +43,8 @@ enum class Category(@StringRes val resId: Int, val categoryId: Int) {
 @Immutable
 data class Quiz(
     val questions: List<Question>,
-    val category: Category?,
-    val difficulty: Difficulty?,
+    val category: Category,
+    val difficulty: Difficulty,
 )
 
 @Immutable

@@ -16,7 +16,7 @@ class MockQuizRepository : QuizRepository {
     private var lastId = 1
 
     init {
-        repeat(0) {
+        repeat(5) {
             history += CompletedQuiz(
                 quiz = Quiz(
                     questions = listOf(

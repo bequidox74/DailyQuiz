@@ -87,7 +87,7 @@ inline fun TemplateQuizScreen(
             }
         }
 
-        Spacer(Modifier.height(42.dp))
+        Spacer(Modifier.height(16.dp))
         content()
     }
 }

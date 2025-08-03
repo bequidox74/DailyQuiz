@@ -3,15 +3,18 @@ package ru.trfx.dailyquiz.quiz.screen
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.generated.destinations.WelcomeScreenDestination
@@ -25,6 +28,7 @@ import ru.trfx.dailyquiz.ui.component.Button
 import ru.trfx.dailyquiz.ui.component.HistoryAnswerCard
 import ru.trfx.dailyquiz.ui.component.RadioButtonState
 import ru.trfx.dailyquiz.ui.component.ResultsCard
+import ru.trfx.dailyquiz.ui.theme.Colors
 
 @Destination<RootGraph>
 @Composable
@@ -52,7 +56,7 @@ fun QuizResultsScreen(
         if (completedQuiz == null) return@TemplateQuizScreen
         @Suppress("NAME_SHADOWING") val completedQuiz = completedQuiz!!
 
-        LazyColumn {
+        LazyColumn(horizontalAlignment = Alignment.CenterHorizontally) {
             val quiz = completedQuiz.quiz
             val answers = completedQuiz.answers
 
@@ -63,6 +67,27 @@ fun QuizResultsScreen(
             }
 
             item {
+                Text(
+                    text = stringResource(
+                        R.string.quiz_category,
+                        stringResource(quiz.category.resId),
+                    ),
+                    color = Colors.White,
+                    fontSize = 16.sp,
+                )
+                Spacer(Modifier.height(4.dp))
+                Text(
+                    text = stringResource(
+                        R.string.quiz_difficulty,
+                        stringResource(quiz.difficulty.resId),
+                    ),
+                    color = Colors.White,
+                    fontSize = 16.sp,
+                )
+            }
+
+            item {
+                Spacer(Modifier.height(24.dp))
                 ResultsCard(
                     stars = stars,
                     onRestart = { navigator.navigate(WelcomeScreenDestination) },
