@@ -14,6 +14,33 @@ class MockQuizRepository : QuizRepository {
 
     private val history = mutableListOf<CompletedQuiz>()
 
+    init {
+        history += CompletedQuiz(
+            quiz = Quiz(
+                questions = listOf(
+                    Question(
+                        title = "Lorem ipsum X?",
+                        options = listOf("A", "B", "C", "D"),
+                        correctOptionIndex = 0,
+                    ),
+                    Question(
+                        title = "Lorem ipsum Y?",
+                        options = listOf("A", "B", "C", "D"),
+                        correctOptionIndex = 1,
+                    ),
+                    Question(
+                        title = "Lorem ipsum Z?",
+                        options = listOf("A", "B", "C", "D"),
+                        correctOptionIndex = 2,
+                    ),
+                ),
+                category = Category.Film,
+                difficulty = Difficulty.Easy,
+            ),
+            answers = listOf(0, 2, 1),
+        )
+    }
+
     override suspend fun fetchNewQuiz(
         questionCount: Int,
         category: Category?,
