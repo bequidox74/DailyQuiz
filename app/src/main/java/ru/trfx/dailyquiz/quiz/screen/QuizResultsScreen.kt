@@ -138,7 +138,9 @@ fun QuizResultsScreen(
                         text = stringResource(R.string.button_restart).uppercase(),
                         onClick = {
                             navigator.navigate(WelcomeScreenDestination) {
-                                popUpTo(RootNavGraph.startRoute)
+                                popUpTo(RootNavGraph.startRoute) {
+                                    inclusive = true
+                                }
                             }
                         },
                         invertColors = true,
