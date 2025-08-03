@@ -2,18 +2,19 @@ package ru.trfx.dailyquiz.quiz
 
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Immutable
+import kotlinx.serialization.Serializable
 import ru.trfx.dailyquiz.R
 import java.time.Instant
 
-enum class Difficulty(@StringRes val resId: Int) {
-    Any(R.string.difficulty_any),
-    Easy(R.string.difficulty_easy),
-    Medium(R.string.difficulty_medium),
-    Hard(R.string.difficulty_hard),
+enum class Difficulty(@StringRes val resId: Int, val apiName: String?) {
+    Any(R.string.difficulty_any, null),
+    Easy(R.string.difficulty_easy, "easy"),
+    Medium(R.string.difficulty_medium, "medium"),
+    Hard(R.string.difficulty_hard, "hard"),
 }
 
-enum class Category(@StringRes val resId: Int, val categoryId: Int) {
-    Any(R.string.category_any, -1),
+enum class Category(@StringRes val resId: Int, val categoryId: Int?) {
+    Any(R.string.category_any, null),
     GeneralKnowledge(R.string.category_general_knowledge, 9),
     Books(R.string.category_books, 10),
     Film(R.string.category_film, 11),
@@ -40,6 +41,7 @@ enum class Category(@StringRes val resId: Int, val categoryId: Int) {
     CartoonsAndAnimation(R.string.category_cartoons, 32),
 }
 
+@Serializable
 @Immutable
 data class Quiz(
     val questions: List<Question>,
@@ -47,6 +49,7 @@ data class Quiz(
     val difficulty: Difficulty,
 )
 
+@Serializable
 @Immutable
 data class Question(
     val title: String,
@@ -54,11 +57,12 @@ data class Question(
     val correctOptionIndex: Int,
 )
 
+@Serializable
 @Immutable
 data class CompletedQuiz(
     val quiz: Quiz,
     val answers: List<Int>,
-    val creationInstant: Instant = Instant.now(),
+    val creationEpochSecond: Long = Instant.now().epochSecond,
     val id: Int? = null,
 ) {
     init {

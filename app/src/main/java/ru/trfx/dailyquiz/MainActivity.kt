@@ -10,7 +10,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.generated.NavGraphs
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
 import org.koin.compose.KoinApplication
+import org.koin.core.logger.Level
 import ru.trfx.dailyquiz.ui.theme.Colors
 import ru.trfx.dailyquiz.ui.theme.DailyQuizTheme
 import ru.trfx.dailyquiz.ui.uiModule
@@ -27,6 +30,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             KoinApplication(application = {
+                androidContext(this@MainActivity)
+                androidLogger(Level.DEBUG)
                 modules(uiModule, dataModule)
             }) {
                 DailyQuizTheme {

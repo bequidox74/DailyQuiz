@@ -38,6 +38,7 @@ import ru.trfx.dailyquiz.ui.component.QuizHistoryCard
 import ru.trfx.dailyquiz.ui.component.Throbber
 import ru.trfx.dailyquiz.ui.theme.Colors
 import timber.log.Timber
+import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 
@@ -145,7 +146,7 @@ fun HistoryScreen(navigator: DestinationsNavigator) {
 
                     // Interpret the timestamp in the current time zone
                     val dateTime = LocalDateTime.ofInstant(
-                        completedQuiz.creationInstant,
+                        Instant.ofEpochSecond(completedQuiz.creationEpochSecond),
                         ZoneId.systemDefault(),
                     )
 

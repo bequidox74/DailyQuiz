@@ -7,6 +7,7 @@ import ru.trfx.dailyquiz.quiz.Difficulty
 import ru.trfx.dailyquiz.quiz.Question
 import ru.trfx.dailyquiz.quiz.Quiz
 import timber.log.Timber
+import java.time.Instant
 
 class MockQuizRepository : QuizRepository {
     private var _lastQuiz: CompletedQuiz? = null
@@ -51,6 +52,7 @@ class MockQuizRepository : QuizRepository {
                 ),
                 answers = listOf(0, 2, 1, 3, 0),
                 id = lastId++,
+                creationEpochSecond = Instant.now().epochSecond,
             )
         }
     }
